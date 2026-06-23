@@ -1,103 +1,193 @@
-import Image from "next/image";
+import {
+  ButtonRow,
+  CtaSection,
+  PageShell,
+  PrinciplesGrid,
+  ProcessGrid,
+  SectionIntro,
+  WorkGrid,
+} from "@/components/site";
+import {
+  industries,
+  metrics,
+  partnerBenefits,
+  pipeline,
+  serviceGroups,
+} from "@/lib/site-data";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <PageShell>
+      <section className="hero">
+        <div className="hero-bg grid-bg radial-fade" />
+        <div className="container hero-inner">
+          <div className="badge">
+            <span />
+            Accepting new product engagements for Q3
+          </div>
+          <h1>
+            Your technology partner for{" "}
+            <span className="muted">startups</span> and{" "}
+            <span className="underlined">growing businesses</span>.
+          </h1>
+          <p className="hero-copy">
+            We build SaaS products, AI solutions, e-commerce platforms, and
+            custom software that help founders and businesses move faster — from
+            idea to MVP to scale.
+          </p>
+          <ButtonRow
+            primary={["Book a discovery call", "/contact"]}
+            secondary={["View our work", "/work"]}
+          />
+          <CodeWindow />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+      </section>
+
+      <section className="section">
+        <div className="container section-pad">
+          <p className="eyebrow" style={{ textAlign: "center" }}>
+            Industries we&apos;ve shipped product into
+          </p>
+          <div className="industry-grid">
+            {industries.map((industry) => (
+              <div key={industry}>{industry}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-pad partner-layout">
+          <SectionIntro
+            eyebrow="Trusted partner"
+            title="We become an extension of your team — not another vendor."
+            body="Founders and operating teams bring us in when they need a real product organisation without months of hiring. We embed, we ship, and we stay."
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <div className="card-grid">
+            {partnerBenefits.map((benefit) => (
+              <article className="surface-card" key={benefit.title}>
+                <h3>{benefit.title}</h3>
+                <p>{benefit.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-pad">
+          <SectionIntro
+            eyebrow="Services"
+            title="Three ways we build with you."
+            body="From a first MVP to a full product organisation — engagements scoped to where you are and where you're going."
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <div className="services-grid" style={{ marginTop: "3.5rem" }}>
+            {serviceGroups.map((service) => (
+              <article className="service-card" key={service.title}>
+                <header>
+                  <span>/{service.number}</span>
+                  <span />
+                </header>
+                <h3>{service.title}</h3>
+                <ul>
+                  {service.items.map(([item]) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-pad">
+          <div style={{ display: "flex", justifyContent: "space-between", gap: "2rem", alignItems: "end", flexWrap: "wrap" }}>
+            <SectionIntro
+              eyebrow="Selected work"
+              title="Products shipped, businesses scaled."
+              body="A look at recent platforms we've built — across healthcare, SaaS, real estate, AI, and commerce."
+            />
+            <ButtonRow primary={["All work", "/work"]} />
+          </div>
+          <div style={{ marginTop: "3.5rem" }}>
+            <WorkGrid limit={6} />
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-pad">
+          <SectionIntro
+            eyebrow="Process"
+            title="A premium product process — without the consulting theatre."
+            body="Six tight phases, weekly delivery, no surprises."
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <div style={{ marginTop: "3.5rem" }}>
+            <ProcessGrid />
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container section-pad">
+          <SectionIntro
+            eyebrow="Why Brew with Crew"
+            title={
+              <>
+                Serious software for{" "}
+                <span className="muted">serious businesses</span>.
+              </>
+            }
+          />
+          <div style={{ marginTop: "3.5rem" }}>
+            <PrinciplesGrid />
+          </div>
+        </div>
+      </section>
+
+      <CtaSection />
+    </PageShell>
+  );
+}
+
+function CodeWindow() {
+  return (
+    <div className="code-window">
+      <div className="code-titlebar">
+        <div className="window-dots">
+          <span />
+          <span />
+          <span />
+        </div>
+        <span>brewwithcrew · product-pipeline.ts</span>
+        <span>◐ live</span>
+      </div>
+      <div className="code-grid">
+        <div className="code-block">
+          <p>
+            <span className="gold">const</span> pipeline ={" "}
+            <span className="white">[</span>
+          </p>
+          {pipeline.map(([phase, does]) => (
+            <p style={{ paddingLeft: "1rem" }} key={phase}>
+              {"{ "}
+              <span className="white">phase</span>:{" "}
+              <span className="gold">&quot;{phase}&quot;</span>,{" "}
+              <span className="white">does</span>: &quot;{does}&quot; {"},"}
+            </p>
+          ))}
+          <p className="white">]</p>
+        </div>
+        <div className="metrics-grid">
+          {metrics.map((metric) => (
+            <div className="metric" key={metric.label}>
+              <p className="eyebrow">{metric.label}</p>
+              <strong>{metric.value}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
