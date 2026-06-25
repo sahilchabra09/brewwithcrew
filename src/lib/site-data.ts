@@ -146,7 +146,23 @@ export const principles = [
   ["Long-term partnerships", "Most clients keep us on as their de-facto engineering team."],
 ];
 
-export const projects = [
+export type Project = {
+  slug: string;
+  year: string;
+  industry: string;
+  code: string;
+  type: string;
+  status: string;
+  title: string;
+  summary: string;
+  stack: string[];
+  website?: string;
+  overview?: string;
+  built?: string[];
+  outcomes?: [string, string][];
+};
+
+export const projects: Project[] = [
   {
     slug: "kmaxx",
     year: "2024",
@@ -158,6 +174,7 @@ export const projects = [
     summary:
       "Hospital management and showcase platform with a fully custom CMS, doctor profiles, and an end-to-end appointment engine.",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    website: "https://kmaxx.in/",
     overview:
       "A hospital management and showcase platform with a fully custom CMS, doctor profiles, appointment booking, service pages, and patient-facing discovery flows. The platform gives the team control over doctors, departments, content, and lead capture while keeping the public experience fast and premium.",
     built: ["Custom CMS for hospital content", "Doctor profiles and department pages", "Appointment and enquiry workflows", "Responsive marketing and showcase pages"],
@@ -190,6 +207,7 @@ export const projects = [
     summary:
       "A fully functional e-commerce platform with integrated WhatsApp marketing and automated campaign management.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+    website: "https://saazcreation.com/",
     overview:
       "A fully functional e-commerce platform providing a seamless product browsing and checkout experience, complete with integrated WhatsApp marketing capabilities and automated campaign management to drive customer engagement and sales conversion.",
     built: ["Complete storefront with cart and checkout", "WhatsApp marketing integration", "Automated campaign scheduling", "Optimised for mobile-first commerce"],
@@ -238,6 +256,7 @@ export const projects = [
     summary:
       "A professional real estate platform for property listings, buyer-seller connections, and intuitive discovery.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    website: "https://gkrealty.co/",
     overview:
       "A professional real estate platform designed for showcasing property listings, facilitating buyer-seller connections, and streamlining the property discovery process with intuitive navigation.",
     built: ["Rich property listing system", "Buyer-seller enquiry workflows", "Search, filter, and discovery experience", "Optimised for mobile property browsing"],
@@ -254,6 +273,7 @@ export const projects = [
     summary:
       "A real estate property website built to showcase high-end residential and commercial estates with premium presentation.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    website: "https://avasadevelopers.com/",
   },
   {
     slug: "dental-excellence-ludhiana",
@@ -266,6 +286,7 @@ export const projects = [
     summary:
       "An expansive multi-page dental practice website covering detailed services, treatment information, and patient resources.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    website: "https://dentalexcellenceludhiana.sahilchabra.xyz/",
   },
   {
     slug: "dhillon-dental-studio",
@@ -278,6 +299,7 @@ export const projects = [
     summary:
       "A professional showcase website for a dental practice — clean UI/UX, service information, and an elegant digital presence.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    website: "https://www.dhillondentalstudio.com/",
   },
   {
     slug: "mundra-dental-clinic",
@@ -290,6 +312,7 @@ export const projects = [
     summary:
       "A dedicated frontend website for a dental clinic showcasing services, specialisations, and clinic information.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    website: "https://www.mundradentalclinic.com/",
   },
   {
     slug: "hesh-media",
@@ -302,6 +325,7 @@ export const projects = [
     summary:
       "A sleek showcase website for a social media marketing agency — services, portfolio, and conversion-focused design.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    website: "https://www.heshmedia.in/",
   },
   {
     slug: "spectra",
@@ -314,7 +338,6 @@ export const projects = [
     summary:
       "An interactive event ticket booking portal built for GNDU's annual cultural and technical fest.",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    website: "https://spectra.cess-gndu.com",
   },
 ];
-
-export type Project = (typeof projects)[number];

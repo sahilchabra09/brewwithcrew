@@ -21,10 +21,6 @@ export default function Home() {
       <section className="hero">
         <div className="hero-bg grid-bg radial-fade" />
         <div className="container hero-inner">
-          <div className="badge">
-            <span />
-            Accepting new product engagements for Q3
-          </div>
           <h1>
             Your technology partner for{" "}
             <span className="muted">startups</span> and{" "}

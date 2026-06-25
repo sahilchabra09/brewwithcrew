@@ -68,6 +68,18 @@ export default async function WorkDetailPage({
               title={project.title}
               body={project.summary}
             />
+            {project.website ? (
+              <div className="button-row" style={{ marginTop: "1.5rem" }}>
+                <Link
+                  className="button secondary"
+                  href={project.website}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View live <span>↗</span>
+                </Link>
+              </div>
+            ) : null}
           </div>
           <div className="case-meta">
             <div>
@@ -78,14 +90,6 @@ export default async function WorkDetailPage({
               <p className="eyebrow">Status</p>
               <strong>{project.status}</strong>
             </div>
-            <div>
-              <p className="eyebrow">Year</p>
-              <strong>{project.year}</strong>
-            </div>
-            <div>
-              <p className="eyebrow">Engagement</p>
-              <strong>Product partner</strong>
-            </div>
           </div>
         </div>
       </section>
@@ -95,9 +99,7 @@ export default async function WorkDetailPage({
           <div className="project-art" style={{ border: "1px solid var(--hairline)", borderRadius: "1rem" }}>
             <div className="grid-overlay grid-bg" />
             <div className="project-art-meta">
-              <span>
-                {project.year} / {project.industry}
-              </span>
+              <span>{project.industry}</span>
               <span>{project.code}</span>
             </div>
           </div>

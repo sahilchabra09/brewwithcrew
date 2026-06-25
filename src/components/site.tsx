@@ -10,11 +10,11 @@ import {
 export function Logo() {
   return (
     <Link className="logo" href="/">
-      <span className="logo-mark">
-        <span>B</span>
-        <i />
+      <span className="flex items-center gap-2 text-xl font-semibold tracking-tighter text-foreground/95">
+        <span className="whitespace-nowrap">
+          Brew <span className="text-foreground/70">with</span> Crew
+        </span>
       </span>
-      <span>Brew with Crew</span>
     </Link>
   );
 }
@@ -169,9 +169,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="project-art">
         <div className="grid-overlay" />
         <div className="project-art-meta">
-          <span>
-            {project.year} / {project.industry}
-          </span>
+          <span>{project.industry}</span>
           <span>{project.code}</span>
         </div>
         <div className="dot-grid">
