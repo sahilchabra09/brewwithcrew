@@ -157,6 +157,8 @@ export type Project = {
   summary: string;
   stack: string[];
   website?: string;
+  previewImage?: string;
+  videoEmbedUrl?: string;
   overview?: string;
   built?: string[];
   outcomes?: [string, string][];
@@ -175,6 +177,8 @@ export const projects: Project[] = [
       "Hospital management and showcase platform with a fully custom CMS, doctor profiles, and an end-to-end appointment engine.",
     stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
     website: "https://kmaxx.in/",
+    previewImage: "/Kmaxx.png",
+    videoEmbedUrl: "https://youtu.be/ClMNEjlztMM?si=96OH3_nNnZF8zHs1",
     overview:
       "A hospital management and showcase platform with a fully custom CMS, doctor profiles, appointment booking, service pages, and patient-facing discovery flows. The platform gives the team control over doctors, departments, content, and lead capture while keeping the public experience fast and premium.",
     built: ["Custom CMS for hospital content", "Doctor profiles and department pages", "Appointment and enquiry workflows", "Responsive marketing and showcase pages"],
@@ -257,6 +261,8 @@ export const projects: Project[] = [
       "A professional real estate platform for property listings, buyer-seller connections, and intuitive discovery.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     website: "https://gkrealty.co/",
+    previewImage: "/Gk.png",
+    videoEmbedUrl: "https://youtu.be/LoohFfXyK6g",
     overview:
       "A professional real estate platform designed for showcasing property listings, facilitating buyer-seller connections, and streamlining the property discovery process with intuitive navigation.",
     built: ["Rich property listing system", "Buyer-seller enquiry workflows", "Search, filter, and discovery experience", "Optimised for mobile property browsing"],
@@ -274,6 +280,8 @@ export const projects: Project[] = [
       "A real estate property website built to showcase high-end residential and commercial estates with premium presentation.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     website: "https://avasadevelopers.com/",
+    previewImage: "/Avasa.png",
+    videoEmbedUrl: "https://youtu.be/P2B6LWHtsx4",
   },
   {
     slug: "dental-excellence-ludhiana",
@@ -300,6 +308,8 @@ export const projects: Project[] = [
       "A professional showcase website for a dental practice — clean UI/UX, service information, and an elegant digital presence.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     website: "https://www.dhillondentalstudio.com/",
+    previewImage: "/Dhillon-dental.png",
+    videoEmbedUrl: "https://www.youtube.com/embed/nIyQwtLPGTQ",
   },
   {
     slug: "mundra-dental-clinic",
@@ -326,6 +336,8 @@ export const projects: Project[] = [
       "A sleek showcase website for a social media marketing agency — services, portfolio, and conversion-focused design.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     website: "https://www.heshmedia.in/",
+    previewImage: "/hesh.png",
+    videoEmbedUrl: "https://youtu.be/BCdTI9NYkL0",
   },
   {
     slug: "spectra",

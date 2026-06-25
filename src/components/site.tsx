@@ -1,3 +1,5 @@
+"use client";
+import Image from "next/image";
 import Link from "next/link";
 import {
   navItems,
@@ -167,6 +169,17 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link className="project-card" href={`/work/${project.slug}`}>
       <div className="project-art">
+        {project.previewImage ? (
+          <div className="project-art-image">
+            <Image
+              src={project.previewImage}
+              alt={`${project.title} preview`}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        ) : null}
         <div className="grid-overlay" />
         <div className="project-art-meta">
           <span>{project.industry}</span>

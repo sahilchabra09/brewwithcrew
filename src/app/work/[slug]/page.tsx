@@ -8,6 +8,31 @@ import {
 } from "@/components/site";
 import { projects } from "@/lib/site-data";
 
+function buildVideoEmbedUrl(videoUrl: string) {
+  const url = new URL(videoUrl);
+  const pathParts = url.pathname.split("/").filter(Boolean);
+  const videoId =
+    url.hostname.includes("youtu.be")
+      ? pathParts[0]
+      : pathParts[pathParts.length - 1];
+
+  if (!videoId) {
+    return videoUrl;
+  }
+
+  const embedUrl = new URL(`https://www.youtube.com/embed/${videoId}`);
+  embedUrl.searchParams.set("autoplay", "1");
+  embedUrl.searchParams.set("mute", "1");
+  embedUrl.searchParams.set("controls", "1");
+  embedUrl.searchParams.set("modestbranding", "1");
+  embedUrl.searchParams.set("rel", "0");
+  embedUrl.searchParams.set("playsinline", "1");
+  embedUrl.searchParams.set("loop", "1");
+  embedUrl.searchParams.set("playlist", videoId);
+
+  return embedUrl.toString();
+}
+
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
@@ -54,12 +79,16 @@ export default async function WorkDetailPage({
     ["Experience", "Responsive"],
     ["Stack", "Modern"],
   ];
+  const hasShowcaseVideo = Boolean(project.videoEmbedUrl);
+  const showcaseVideoUrl = project.videoEmbedUrl
+    ? buildVideoEmbedUrl(project.videoEmbedUrl)
+    : null;
 
   return (
     <PageShell>
       <section className="page-hero">
         <div className="container detail-hero-grid">
-          <div>
+          <div className="detail-hero-copy">
             <Link className="pill-link" href="/work">
               ← All work
             </Link>
@@ -81,28 +110,33 @@ export default async function WorkDetailPage({
               </div>
             ) : null}
           </div>
-          <div className="case-meta">
-            <div>
-              <p className="eyebrow">Industry</p>
-              <strong>{project.industry}</strong>
-            </div>
-            <div>
-              <p className="eyebrow">Status</p>
-              <strong>{project.status}</strong>
-            </div>
-          </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container section-pad">
-          <div className="project-art" style={{ border: "1px solid var(--hairline)", borderRadius: "1rem" }}>
-            <div className="grid-overlay grid-bg" />
-            <div className="project-art-meta">
-              <span>{project.industry}</span>
-              <span>{project.code}</span>
+          {hasShowcaseVideo ? (
+            <div className="project-video-only">
+              <iframe
+                src={showcaseVideoUrl ?? undefined}
+                title={`${project.title} video showcase`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
-          </div>
+          ) : (
+            <div
+              className="project-art"
+              style={{ border: "1px solid var(--hairline)", borderRadius: "1rem" }}
+            >
+              <div className="grid-overlay grid-bg" />
+              <div className="project-art-meta">
+                <span>{project.industry}</span>
+                <span>{project.code}</span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
