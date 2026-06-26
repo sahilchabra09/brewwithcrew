@@ -9,9 +9,7 @@ import {
 } from "@/components/site";
 import {
   industries,
-  metrics,
   partnerBenefits,
-  pipeline,
   serviceGroups,
 } from "@/lib/site-data";
 
@@ -35,7 +33,6 @@ export default function Home() {
             primary={["Book a discovery call", "/contact"]}
             secondary={["View our work", "/work"]}
           />
-          <CodeWindow />
         </div>
       </section>
 
@@ -144,46 +141,5 @@ export default function Home() {
 
       <CtaSection />
     </PageShell>
-  );
-}
-
-function CodeWindow() {
-  return (
-    <div className="code-window">
-      <div className="code-titlebar">
-        <div className="window-dots">
-          <span />
-          <span />
-          <span />
-        </div>
-        <span>brewwithcrew · product-pipeline.ts</span>
-        <span>◐ live</span>
-      </div>
-      <div className="code-grid">
-        <div className="code-block">
-          <p>
-            <span className="gold">const</span> pipeline ={" "}
-            <span className="white">[</span>
-          </p>
-          {pipeline.map(([phase, does]) => (
-            <p style={{ paddingLeft: "1rem" }} key={phase}>
-              {"{ "}
-              <span className="white">phase</span>:{" "}
-              <span className="gold">&quot;{phase}&quot;</span>,{" "}
-              <span className="white">does</span>: &quot;{does}&quot; {"},"}
-            </p>
-          ))}
-          <p className="white">]</p>
-        </div>
-        <div className="metrics-grid">
-          {metrics.map((metric) => (
-            <div className="metric" key={metric.label}>
-              <p className="eyebrow">{metric.label}</p>
-              <strong>{metric.value}</strong>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }

@@ -5,22 +5,6 @@ export const navItems = [
   { href: "/about", label: "About" },
 ];
 
-export const pipeline = [
-  ["discovery", "scope · risk · north star"],
-  ["strategy", "architecture · roadmap"],
-  ["design", "ux · interface · systems"],
-  ["engineering", "ship · iterate · harden"],
-  ["launch", "rollout · observability"],
-  ["growth", "scale · evolve · own"],
-];
-
-export const metrics = [
-  { label: "Time to MVP", value: "6–10 wks" },
-  { label: "Active engagements", value: "12+" },
-  { label: "Industries shipped", value: "8" },
-  { label: "Avg. NPS", value: "72" },
-];
-
 export const industries = [
   "Healthcare",
   "Insurance SaaS",
@@ -212,6 +196,8 @@ export const projects: Project[] = [
       "A high-conversion e-commerce platform with a business-first admin suite for homepage merchandising, catalogue control, sales operations, and automated customer communication.",
     stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Firebase", "Fast2SMS", "AWS Cloudfront", "Razorpay", "Meilisearch"],
     website: "https://saazcreation.com/",
+    previewImage: "/Saaz.png",
+    videoEmbedUrl: "https://youtu.be/5LeuRZaIg4o",
     overview:
       "A production-grade commerce platform designed for daily retail operations, not just storefront presentation. The admin panel gives non-technical teams full control over homepage sections, featured products, promotional banners, coupons, and sale campaigns. It combines catalogue and inventory workflows, order management, Razorpay-powered payments, and cart/checkout journeys with deep analytics across traffic, products, campaigns, and conversions. Redis and AWS CloudFront improve performance at scale, while WhatsApp powers both marketing automation and order-confirmation messaging.",
     built: ["Full storefront with product discovery, cart, and secure Razorpay checkout", "Admin-managed homepage merchandising (sections, featured products, and dynamic banners)", "Catalogue, inventory, and product data management with search-friendly structure", "Order lifecycle management from placement to fulfilment", "Coupon code system and sale campaign controls for promotional pricing", "Analytics across orders, sales performance, product trends, and campaign effectiveness", "Redis + AWS CloudFront caching layer for faster browsing and checkout performance", "WhatsApp marketing workflows and automated WhatsApp order confirmations"],
@@ -303,6 +289,8 @@ export const projects: Project[] = [
       "A multi-page WordPress practice website built to scale clinic content operations. The team can independently manage service pages, treatment details, before/after media, FAQs, testimonials, and on-page SEO while keeping the patient journey clear across mobile and desktop.",
     built: ["WordPress CMS with reusable templates for treatments and services", "Admin-controlled content blocks for doctor info, FAQs, and testimonials", "Structured multi-page IA for patient education and service discovery", "Editable SEO fields and metadata for local search performance", "Responsive UX optimized for patient-first navigation"],
     outcomes: [["CMS control", "Clinic team managed"], ["Content scale", "Multi-page without dev bottlenecks"], ["Patient journey", "Clear and mobile-optimized"]],
+    previewImage: "/dental-excellence.png",
+    videoEmbedUrl: "https://youtu.be/FebooVxre20?si=5aT3SsCnfB7fEF3V",
   },
   {
     slug: "dhillon-dental-studio",
@@ -331,6 +319,8 @@ export const projects: Project[] = [
       "A dedicated frontend website for a dental clinic showcasing services, specialisations, and clinic information.",
     stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "EmailJS"],
     website: "https://www.mundradentalclinic.com/",
+    previewImage: "/mundra.png",
+    videoEmbedUrl: "https://youtu.be/gm9CSh8yiSA?si=QVLEaPcUqqRXxrnK",
   },
   {
     slug: "hesh-media",
