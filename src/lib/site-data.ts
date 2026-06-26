@@ -175,7 +175,7 @@ export const projects: Project[] = [
     title: "Kmaxx",
     summary:
       "Hospital management and showcase platform with a fully custom CMS, doctor profiles, and an end-to-end appointment engine.",
-    stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
+    stack: ["Next.js", "Sanity", "PostgreSQL"],
     website: "https://kmaxx.in/",
     previewImage: "/Kmaxx.png",
     videoEmbedUrl: "https://youtu.be/ClMNEjlztMM?si=96OH3_nNnZF8zHs1",
@@ -185,16 +185,16 @@ export const projects: Project[] = [
     outcomes: [["Appointments", "End-to-end"], ["CMS", "Fully custom"], ["Experience", "Patient-first"]],
   },
   {
-    slug: "insurezeal",
+    slug: "insurance-lifecycle-platform",
     year: "2025",
     industry: "Enterprise SaaS",
-    code: "insurezeal",
+    code: "insurance-lifecycle-platform",
     type: "Insurance SaaS",
     status: "Confidential",
-    title: "InsureZeal",
+    title: "Insurance Lifecycle Platform",
     summary:
       "A fully automated insurance lifecycle platform — policies, claims, analytics, and multi-channel communication in one system.",
-    stack: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL"],
+    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Supabase", "Gemini"],
     overview:
       "A fully automated insurance management SaaS platform being developed for an Amritsar-based insurance company. The system covers policy creation and management, automated claims workflows, customer portal integration, analytics dashboards, document storage, and multi-channel communication automation.",
     built: ["End-to-end policy lifecycle automation", "Automated claims processing workflows", "Role-based access for agents, ops, and customers", "Third-party API integrations across insurance data sources"],
@@ -209,8 +209,8 @@ export const projects: Project[] = [
     status: "Live",
     title: "Saaz Creations",
     summary:
-      "A fully functional e-commerce platform with integrated WhatsApp marketing and automated campaign management.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+      "A fully functional e-commerce platform with integrated WhatsApp marketing, Razorpay payment gateway and a complete admin panel and CMS for catalogue and order management.",
+    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Firebase", "Fast2SMS", "AWS Cloudfront", "Razorpay"],
     website: "https://saazcreation.com/",
     overview:
       "A fully functional e-commerce platform providing a seamless product browsing and checkout experience, complete with integrated WhatsApp marketing capabilities and automated campaign management to drive customer engagement and sales conversion.",
