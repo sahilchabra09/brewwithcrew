@@ -174,15 +174,15 @@ export const projects: Project[] = [
     status: "Live",
     title: "Kmaxx",
     summary:
-      "Hospital management and showcase platform with a fully custom CMS, doctor profiles, and an end-to-end appointment engine.",
-    stack: ["Next.js", "Sanity", "PostgreSQL"],
+      "Hospital management and showcase platform with a fully custom CMS, doctor profiles, appointment automation, and compliance-focused record publishing.",
+    stack: ["Next.js", "Sanity", "PostgreSQL", "EmailJS"],
     website: "https://kmaxx.in/",
     previewImage: "/Kmaxx.png",
     videoEmbedUrl: "https://youtu.be/ClMNEjlztMM?si=96OH3_nNnZF8zHs1",
     overview:
-      "A hospital management and showcase platform with a fully custom CMS, doctor profiles, appointment booking, service pages, and patient-facing discovery flows. The platform gives the team control over doctors, departments, content, and lead capture while keeping the public experience fast and premium.",
-    built: ["Custom CMS for hospital content", "Doctor profiles and department pages", "Appointment and enquiry workflows", "Responsive marketing and showcase pages"],
-    outcomes: [["Appointments", "End-to-end"], ["CMS", "Fully custom"], ["Experience", "Patient-first"]],
+      "A hospital management and showcase platform with a fully custom CMS, doctor profiles, appointment booking, service pages, and patient-facing discovery flows. The platform gives the team control over doctors, departments, content, and lead capture while keeping the public experience fast and premium. Appointment notifications are automatically sent to both patients and doctors via email. It also includes medical bio-waste record management where admins upload daily PDF records, which are publicly accessible for transparency and compliance.",
+    built: ["Custom CMS for hospital content", "Doctor profiles and department pages", "Appointment and enquiry workflows", "Automated email notifications to both patient and doctor", "Daily medical bio-waste PDF upload and record management in admin panel", "Public-facing bio-waste record access for compliance transparency", "Responsive marketing and showcase pages"],
+    outcomes: [["Appointments", "End-to-end with dual notifications"], ["Compliance records", "Daily PDFs publicly accessible"], ["Experience", "Patient-first"]],
   },
   {
     slug: "insurance-lifecycle-platform",
@@ -193,12 +193,12 @@ export const projects: Project[] = [
     status: "Confidential",
     title: "Insurance Lifecycle Platform",
     summary:
-      "A fully automated insurance lifecycle platform — policies, claims, analytics, and multi-channel communication in one system.",
-    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Supabase", "Gemini"],
+      "An NDA-protected insurance operations platform automating agent onboarding, OCR-based policy ingestion, reconciliation, and lifecycle management.",
+    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Supabase", "Gemini", "Google Sheets", "WhatsApp APIs"],
     overview:
-      "A fully automated insurance management SaaS platform being developed for an Amritsar-based insurance company. The system covers policy creation and management, automated claims workflows, customer portal integration, analytics dashboards, document storage, and multi-channel communication automation.",
-    built: ["End-to-end policy lifecycle automation", "Automated claims processing workflows", "Role-based access for agents, ops, and customers", "Third-party API integrations across insurance data sources"],
-    outcomes: [["Manual ops", "−85%"], ["Claim processing", "Workflow-driven"], ["Coverage", "Full lifecycle"]],
+      "A confidential insurance operations SaaS platform built for an Amritsar-based insurance business. I led backend architecture and direct client communication while shipping a multi-panel system: agent panel for OCR/Gemini-based policy extraction, admin panel for child ID and MIS record management synced with Google Sheets, and a super-admin panel for analytics, reconciliation, and operational controls. The platform also includes automated email and WhatsApp notifications across policy workflows.",
+    built: ["Automated agent onboarding and management workflows", "OCR + Gemini policy ingestion pipeline", "Admin panel for child ID and MIS record management with Google Sheets sync", "Automated reconciliation engine to verify broker records against carrier lists", "Super-admin analytics dashboards and role-based operational controls", "Multi-channel communication layer with email and WhatsApp integrations", "End-to-end policy lifecycle automation from intake to servicing"],
+    outcomes: [["Manual policy entry time", "−90%"], ["Record comparison time", "−95%"], ["Reconciliation throughput", "500+ records in <3 seconds"]],
   },
   {
     slug: "saaz-creations",
@@ -209,13 +209,13 @@ export const projects: Project[] = [
     status: "Live",
     title: "Saaz Creations",
     summary:
-      "A fully functional e-commerce platform with integrated WhatsApp marketing, Razorpay payment gateway and a complete admin panel and CMS for catalogue and order management.",
-    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Firebase", "Fast2SMS", "AWS Cloudfront", "Razorpay"],
+      "A high-conversion e-commerce platform with a business-first admin suite for homepage merchandising, catalogue control, sales operations, and automated customer communication.",
+    stack: ["Next.js", "FastAPI", "PostgreSQL", "Redis", "Firebase", "Fast2SMS", "AWS Cloudfront", "Razorpay", "Meilisearch"],
     website: "https://saazcreation.com/",
     overview:
-      "A fully functional e-commerce platform providing a seamless product browsing and checkout experience, complete with integrated WhatsApp marketing capabilities and automated campaign management to drive customer engagement and sales conversion.",
-    built: ["Complete storefront with cart and checkout", "WhatsApp marketing integration", "Automated campaign scheduling", "Optimised for mobile-first commerce"],
-    outcomes: [["Checkout flow", "Seamless"], ["Campaign ops", "Automated"], ["Channel", "Web + WhatsApp"]],
+      "A production-grade commerce platform designed for daily retail operations, not just storefront presentation. The admin panel gives non-technical teams full control over homepage sections, featured products, promotional banners, coupons, and sale campaigns. It combines catalogue and inventory workflows, order management, Razorpay-powered payments, and cart/checkout journeys with deep analytics across traffic, products, campaigns, and conversions. Redis and AWS CloudFront improve performance at scale, while WhatsApp powers both marketing automation and order-confirmation messaging.",
+    built: ["Full storefront with product discovery, cart, and secure Razorpay checkout", "Admin-managed homepage merchandising (sections, featured products, and dynamic banners)", "Catalogue, inventory, and product data management with search-friendly structure", "Order lifecycle management from placement to fulfilment", "Coupon code system and sale campaign controls for promotional pricing", "Analytics across orders, sales performance, product trends, and campaign effectiveness", "Redis + AWS CloudFront caching layer for faster browsing and checkout performance", "WhatsApp marketing workflows and automated WhatsApp order confirmations"],
+    outcomes: [["Merchandising control", "Fully admin-managed"], ["Commerce operations", "End-to-end unified"], ["Customer communication", "Marketing + order updates on WhatsApp"]],
   },
   {
     slug: "audio-flow",
@@ -258,15 +258,15 @@ export const projects: Project[] = [
     status: "Live",
     title: "GK Realty",
     summary:
-      "A professional real estate platform for property listings, buyer-seller connections, and intuitive discovery.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+      "A WordPress-powered real estate website with full admin control over listings, pages, media, and lead flows for day-to-day sales operations.",
+    stack: ["WordPress", "PHP", "MySQL", "ACF", "Elementor"],
     website: "https://gkrealty.co/",
     previewImage: "/Gk.png",
     videoEmbedUrl: "https://youtu.be/LoohFfXyK6g",
     overview:
-      "A professional real estate platform designed for showcasing property listings, facilitating buyer-seller connections, and streamlining the property discovery process with intuitive navigation.",
-    built: ["Rich property listing system", "Buyer-seller enquiry workflows", "Search, filter, and discovery experience", "Optimised for mobile property browsing"],
-    outcomes: [["Discovery", "Streamlined"], ["Enquiries", "Direct to seller"], ["Experience", "Mobile-first"]],
+      "A conversion-focused WordPress real estate experience designed for fast listing discovery and direct lead capture. The team gets full backend control to add or update listings, edit property sections, publish new pages, manage media, and optimise SEO metadata without developer dependency.",
+    built: ["WordPress CMS with full control over property listings and landing pages", "Custom listing structure with search, filtering, and mobile-first browsing", "Lead capture and buyer-seller enquiry workflows", "Editable page sections, banners, and media via admin panel", "SEO-friendly architecture with controllable metadata and content hierarchy"],
+    outcomes: [["Content operations", "Fully admin-managed"], ["Enquiries", "Direct to seller"], ["Go-to-market", "No-dev publishing workflow"]],
   },
   {
     slug: "avasa-real-estate",
@@ -277,11 +277,15 @@ export const projects: Project[] = [
     status: "Live",
     title: "Avasa Real Estate",
     summary:
-      "A real estate property website built to showcase high-end residential and commercial estates with premium presentation.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      "A premium WordPress real estate website built for luxury inventory presentation with fast publishing, flexible content control, and conversion-ready pages.",
+    stack: ["WordPress", "PHP", "MySQL", "ACF", "Elementor"],
     website: "https://avasadevelopers.com/",
     previewImage: "/Avasa.png",
     videoEmbedUrl: "https://youtu.be/P2B6LWHtsx4",
+    overview:
+      "A luxury-focused WordPress website for showcasing residential and commercial estates with rich visual storytelling. Marketing teams can manage pages, project sections, CTAs, galleries, and campaign content directly from the CMS while maintaining a polished premium brand experience.",
+    built: ["WordPress CMS with modular sections for project storytelling", "Admin-editable banners, galleries, landing pages, and conversion CTAs", "Luxury property showcase templates with responsive visual layouts", "SEO-ready content structure for organic discoverability", "Performance-conscious media handling for high-quality assets"],
+    outcomes: [["Brand presentation", "Premium and consistent"], ["Publishing velocity", "Fast CMS-led updates"], ["Team autonomy", "Non-dev editable website"]],
   },
   {
     slug: "dental-excellence-ludhiana",
@@ -292,9 +296,13 @@ export const projects: Project[] = [
     status: "Live",
     title: "Dental Excellence Ludhiana",
     summary:
-      "An expansive multi-page dental practice website covering detailed services, treatment information, and patient resources.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+      "A comprehensive WordPress dental website with complete CMS control over services, doctor profiles, treatment pages, and patient communication content.",
+    stack: ["WordPress", "PHP", "MySQL", "ACF", "Elementor"],
     website: "https://dentalexcellenceludhiana.sahilchabra.xyz/",
+    overview:
+      "A multi-page WordPress practice website built to scale clinic content operations. The team can independently manage service pages, treatment details, before/after media, FAQs, testimonials, and on-page SEO while keeping the patient journey clear across mobile and desktop.",
+    built: ["WordPress CMS with reusable templates for treatments and services", "Admin-controlled content blocks for doctor info, FAQs, and testimonials", "Structured multi-page IA for patient education and service discovery", "Editable SEO fields and metadata for local search performance", "Responsive UX optimized for patient-first navigation"],
+    outcomes: [["CMS control", "Clinic team managed"], ["Content scale", "Multi-page without dev bottlenecks"], ["Patient journey", "Clear and mobile-optimized"]],
   },
   {
     slug: "dhillon-dental-studio",
@@ -321,7 +329,7 @@ export const projects: Project[] = [
     title: "Mundra Dental Clinic",
     summary:
       "A dedicated frontend website for a dental clinic showcasing services, specialisations, and clinic information.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    stack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "EmailJS"],
     website: "https://www.mundradentalclinic.com/",
   },
   {
@@ -338,18 +346,5 @@ export const projects: Project[] = [
     website: "https://www.heshmedia.in/",
     previewImage: "/hesh.png",
     videoEmbedUrl: "https://youtu.be/BCdTI9NYkL0",
-  },
-  {
-    slug: "spectra",
-    year: "2023",
-    industry: "Events",
-    code: "spectra",
-    type: "Event Ticketing Portal",
-    status: "Archived",
-    title: "Spectra",
-    summary:
-      "An interactive event ticket booking portal built for GNDU's annual cultural and technical fest.",
-    stack: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
-    website: "https://spectra.cess-gndu.com",
   },
 ];
