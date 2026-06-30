@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   navItems,
   principles,
@@ -22,10 +23,19 @@ export function Logo() {
 }
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const mobileNavId = "mobile-navigation";
+
+  function closeMenu() {
+    setIsMenuOpen(false);
+  }
+
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Logo />
+        <div onClick={closeMenu}>
+          <Logo />
+        </div>
         <nav className="desktop-nav">
           {navItems.map((item) => (
             <Link href={item.href} key={item.href}>
@@ -36,11 +46,32 @@ export function Header() {
         <Link className="pill-link desktop-cta" href="/contact">
           Book a call <span>→</span>
         </Link>
-        <button aria-label="Menu" className="menu-button" type="button">
+        <button
+          aria-controls={mobileNavId}
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="menu-button"
+          onClick={() => setIsMenuOpen((current) => !current)}
+          type="button"
+        >
           <span />
           <span />
           <span />
         </button>
+        <nav
+          aria-label="Mobile navigation"
+          className={isMenuOpen ? "mobile-nav open" : "mobile-nav"}
+          id={mobileNavId}
+        >
+          {navItems.map((item) => (
+            <Link href={item.href} key={item.href} onClick={closeMenu}>
+              {item.label}
+            </Link>
+          ))}
+          <Link className="mobile-nav-cta" href="/contact" onClick={closeMenu}>
+            Book a call <span>→</span>
+          </Link>
+        </nav>
       </div>
     </header>
   );

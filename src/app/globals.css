@@ -215,6 +215,8 @@ textarea {
   border-radius: 999px;
   background: transparent;
   padding: 0.5rem;
+  color: var(--foreground);
+  cursor: pointer;
 }
 
 .menu-button span {
@@ -222,6 +224,70 @@ textarea {
   width: 1.25rem;
   height: 1px;
   background: var(--foreground);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.menu-button[aria-expanded="true"] span:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-button[aria-expanded="true"] span:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.mobile-nav {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  left: 0;
+  display: grid;
+  gap: 0.25rem;
+  border: 1px solid oklch(100% 0 0 / 0.12);
+  border-radius: 1rem;
+  background: oklch(13% 0.007 80 / 0.94);
+  box-shadow: 0 18px 40px oklch(0% 0 0 / 0.28);
+  opacity: 0;
+  padding: 0.5rem;
+  pointer-events: none;
+  transform: translateY(-0.5rem);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.mobile-nav.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.mobile-nav a {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  color: var(--muted-foreground);
+  font-size: 0.9375rem;
+}
+
+.mobile-nav a:hover {
+  background: oklch(100% 0 0 / 0.08);
+  color: var(--foreground);
+}
+
+.mobile-nav-cta {
+  margin-top: 0.25rem;
+  background: var(--foreground);
+  color: var(--background) !important;
+  font-weight: 600;
 }
 
 .hero {
@@ -1124,6 +1190,10 @@ textarea {
   }
 
   .menu-button {
+    display: none;
+  }
+
+  .mobile-nav {
     display: none;
   }
 
