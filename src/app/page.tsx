@@ -19,11 +19,12 @@ export default function Home() {
       <section className="hero">
         <div className="hero-bg grid-bg radial-fade" />
         <div className="container hero-inner">
-          <h1>
+          <h1>Brew your ideas with our crew.</h1>
+          <p className="hero-subtitle">
             Your technology partner for{" "}
             <span className="muted">startups</span> and{" "}
             <span className="underlined">growing businesses</span>.
-          </h1>
+          </p>
           <p className="hero-copy">
             We build SaaS products, AI solutions, e-commerce platforms, and
             custom software that help founders and businesses move faster — from

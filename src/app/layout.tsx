@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -9,6 +9,11 @@ const interTight = Inter_Tight({
 
 const jetBrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -57,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${interTight.variable} ${jetBrainsMono.variable} antialiased`}
+        className={`${interTight.variable} ${jetBrainsMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
         {children}
       </body>
