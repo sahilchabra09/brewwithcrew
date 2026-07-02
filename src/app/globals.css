@@ -1301,6 +1301,125 @@ textarea {
   color: transparent;
 }
 
+/* ————— Process: the pour ————— */
+
+.pour-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.pour-jug {
+  position: relative;
+  width: 130px;
+  height: 95px;
+  /* shift so the spout tip (x=14 in the viewBox) sits on the centerline */
+  transform: translateX(51px);
+}
+
+.pour-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.pour-stream {
+  width: 3px;
+  height: 52px;
+  border-radius: 2px;
+  background: var(--brew);
+  filter: drop-shadow(0 0 6px oklch(82% 0.13 75 / 0.45));
+}
+
+.stream-head {
+  height: 88px;
+  margin-top: -34px;
+}
+
+.pour-card {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+}
+
+.pour-border {
+  position: absolute;
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px oklch(82% 0.13 75 / 0.35));
+}
+
+.pour-border path {
+  fill: none;
+  stroke: var(--brew);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* Refills: the pour pools up inside the final card */
+.refill-card {
+  --fill: 0%;
+  isolation: isolate;
+}
+
+.refill-liquid {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--brew);
+  clip-path: inset(calc(100% - var(--fill)) 0 0 0);
+  pointer-events: none;
+}
+
+.refill-clone {
+  position: absolute;
+  inset: 0;
+  padding: 2rem;
+  border-radius: inherit;
+  clip-path: inset(calc(100% - var(--fill)) 0 0 0);
+  pointer-events: none;
+}
+
+.refill-clone,
+.refill-clone h3,
+.refill-clone p,
+.refill-clone span,
+.refill-clone li {
+  color: var(--brew-foreground) !important;
+}
+
+.refill-clone .outputs li {
+  border-color: oklch(18% 0.02 75 / 0.4);
+}
+
+.refill-clone .process-card-top i {
+  background: oklch(18% 0.02 75 / 0.4);
+}
+
+.refill-wave {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: min(var(--fill), calc(100% - 12px));
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12' viewBox='0 0 48 12'%3E%3Cpath d='M0 12 V7 Q6 1 12 7 T24 7 T36 7 T48 7 V12 Z' fill='%23eab364'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 48px 12px;
+  opacity: 0; /* faded in by GSAP once the pool starts rising */
+  pointer-events: none;
+}
+
+.refill-wave.w2 {
+  height: 10px;
+  transform: translateY(-3px);
+}
+
 /* ————— About: warmth & crew mark ————— */
 
 .crew-mark {
@@ -2018,6 +2137,23 @@ textarea {
   /* GSAP never runs to reveal it, so show it outright */
   .hero-headline {
     opacity: 1 !important;
+  }
+
+  /* the pour renders finished: borders drawn, pool full, waves shown */
+  .pour-border path {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .refill-card {
+    --fill: 100% !important;
+  }
+
+  .refill-wave {
+    opacity: 1 !important;
+  }
+
+  .refill-wave.w2 {
+    opacity: 0.55 !important;
   }
 
   .intro-overlay {

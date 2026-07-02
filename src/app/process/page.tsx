@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import {
-  ButtonRow,
-  PageHero,
-  PageShell,
-  ProcessCards,
-} from "@/components/site";
+import { ButtonRow, PageHero, PageShell } from "@/components/site";
 import { CoffeeRing } from "@/components/decor";
-import { RevealStagger, Squiggle } from "@/components/gsap/primitives";
+import { PourFlow } from "@/components/process/pour-flow";
+import { Squiggle } from "@/components/gsap/primitives";
 
 export const metadata: Metadata = {
   title: "Process",
@@ -25,7 +21,7 @@ export default function ProcessPage() {
             <Squiggle>consulting theatre</Squiggle>.
           </>
         }
-        body="Six phases, from sourcing to refills. Weekly delivery. Real, working software at the end of every cycle."
+        body="Six phases, from sourcing to refills. Weekly delivery. Real, working software at the end of every cycle. Scroll to pour."
       />
       <section className="section" style={{ position: "relative", overflow: "hidden" }}>
         <CoffeeRing
@@ -39,9 +35,7 @@ export default function ProcessPage() {
           style={{ bottom: "-100px", left: "-120px" }}
         />
         <div className="container section-pad">
-          <RevealStagger className="process-list" stagger={0.07}>
-            <ProcessCards detailed />
-          </RevealStagger>
+          <PourFlow />
           <ButtonRow primary={["Start your discovery call", "/contact"]} />
         </div>
       </section>
