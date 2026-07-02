@@ -1312,10 +1312,10 @@ textarea {
 
 .pour-jug {
   position: relative;
-  width: 130px;
-  height: 95px;
-  /* shift so the spout tip (x=14 in the viewBox) sits on the centerline */
-  transform: translateX(51px);
+  width: 150px;
+  height: 100px;
+  /* shift so the gooseneck tip (x=15 in the viewBox) sits on the centerline */
+  transform: translateX(60px);
 }
 
 .pour-unit {
@@ -1334,8 +1334,8 @@ textarea {
 }
 
 .stream-head {
-  height: 88px;
-  margin-top: -34px;
+  height: 104px;
+  margin-top: -50px;
 }
 
 .pour-card {
@@ -1413,11 +1413,13 @@ textarea {
   background-size: 48px 12px;
   opacity: 0; /* faded in by GSAP once the pool starts rising */
   pointer-events: none;
+  /* sink 2px into the liquid so no hairline seam shows at the join */
+  transform: translateY(2px);
 }
 
 .refill-wave.w2 {
   height: 10px;
-  transform: translateY(-3px);
+  transform: translateY(-1px);
 }
 
 /* ————— About: warmth & crew mark ————— */
@@ -1425,7 +1427,7 @@ textarea {
 .crew-mark {
   width: 80px;
   height: auto;
-  margin-top: 2rem;
+  margin-top: 3rem;
   color: var(--brew);
 }
 
@@ -1473,12 +1475,22 @@ textarea {
   overflow: hidden;
   border-block: 1px solid var(--hairline);
   padding-block: 1.125rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }
 
 .marquee-track {
   display: flex;
   width: max-content;
+  /* CSS-driven so it scrolls on every device; duration set inline */
+  animation: marquee-slide 28s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee-slide {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-row {

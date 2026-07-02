@@ -153,10 +153,10 @@ export function IntroOverlay() {
             strokeLinecap="round"
             strokeWidth="7"
           />
-          {/* twin spouts */}
+          {/* funnel collar under the basket */}
           <path
             className="intro-draw"
-            d="M106 70 L102 86 M134 70 L138 86"
+            d="M107 70 C108 77 132 77 133 70"
             pathLength="1"
             stroke="var(--crema)"
             strokeDasharray="1"
@@ -164,9 +164,30 @@ export function IntroOverlay() {
             strokeLinecap="round"
             strokeWidth="3"
           />
-          {/* espresso streams (grow downward from the spouts) */}
-          <rect className="intro-stream" fill="var(--brew)" height="0" rx="1.5" width="3" x="100.5" y="90" />
-          <rect className="intro-stream" fill="var(--brew)" height="0" rx="1.5" width="3" x="136.5" y="90" />
+          {/* twin spouts curve apart from the funnel — the classic split pour */}
+          <path
+            className="intro-draw"
+            d="M117 75.5 C114 80 106.5 81.5 104.5 87"
+            pathLength="1"
+            stroke="var(--crema)"
+            strokeDasharray="1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+            strokeWidth="3"
+          />
+          <path
+            className="intro-draw"
+            d="M123 75.5 C126 80 133.5 81.5 135.5 87"
+            pathLength="1"
+            stroke="var(--crema)"
+            strokeDasharray="1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+            strokeWidth="3"
+          />
+          {/* espresso streams (grow downward from the spout tips) */}
+          <rect className="intro-stream" fill="var(--brew)" height="0" rx="1.5" width="3" x="103" y="89" />
+          <rect className="intro-stream" fill="var(--brew)" height="0" rx="1.5" width="3" x="134" y="89" />
           {/* cup */}
           <path
             className="intro-draw"

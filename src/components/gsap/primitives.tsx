@@ -254,7 +254,11 @@ export function Counter({
   );
 }
 
-/** Infinite horizontal ticker. Content is duplicated for the loop. */
+/**
+ * Infinite horizontal ticker. Content is duplicated for the loop. The
+ * scroll is a pure CSS animation (see .marquee-track) so it runs on every
+ * device regardless of JS timing; reduced-motion CSS freezes it.
+ */
 export function Marquee({
   items,
   separator = "●",
@@ -267,21 +271,6 @@ export function Marquee({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add(ENTER, () => {
-        gsap.to(".marquee-track", {
-          xPercent: -50,
-          duration,
-          ease: "none",
-          repeat: -1,
-        });
-      });
-    },
-    { scope: ref },
-  );
 
   const row = (hidden: boolean) => (
     <div aria-hidden={hidden || undefined} className="marquee-row">
@@ -296,7 +285,10 @@ export function Marquee({
 
   return (
     <div className={className ? `marquee ${className}` : "marquee"} ref={ref}>
-      <div className="marquee-track">
+      <div
+        className="marquee-track"
+        style={{ animationDuration: `${duration}s` }}
+      >
         {row(false)}
         {row(true)}
       </div>

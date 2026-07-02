@@ -51,13 +51,13 @@ export function PourFlow() {
       mm.add(ENTER, () => {
         const cleanups: Array<() => void> = [];
 
-        // Kettle tips over its spout as the pour begins
+        // Kettle tips over its spout tip as the pour begins
         gsap.fromTo(
           ".jug-art",
-          { rotation: 4, svgOrigin: "14 56" },
+          { rotation: 3, svgOrigin: "15 45" },
           {
-            rotation: -17,
-            svgOrigin: "14 56",
+            rotation: -15,
+            svgOrigin: "15 45",
             ease: "none",
             scrollTrigger: {
               trigger: ".pour-jug",
@@ -128,9 +128,15 @@ export function PourFlow() {
           );
         });
 
-        // Refills: the pour accumulates as a rising, wavy pool
+        // Refills: the pour accumulates as a rising, wavy pool. Wave
+        // opacity is derived from the same fill progress — fades in as the
+        // pool starts rising, fades back out as it tops out (a full
+        // container has a still surface, and nothing overlays the card).
         const pool = root.querySelector<HTMLElement>(".refill-card");
         if (pool) {
+          const w1 = pool.querySelector<HTMLElement>(".refill-wave.w1");
+          const w2 = pool.querySelector<HTMLElement>(".refill-wave.w2");
+          const ramp = (v: number) => Math.max(0, Math.min(1, v));
           gsap.fromTo(
             pool,
             { "--fill": "0%" },
@@ -142,35 +148,13 @@ export function PourFlow() {
                 start: "top 78%",
                 end: "top 22%",
                 scrub: 0.5,
-              },
-            },
-          );
-          // waves surface as soon as the pool starts rising
-          gsap.fromTo(
-            ".refill-wave.w1",
-            { opacity: 0 },
-            {
-              opacity: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: pool,
-                start: "top 78%",
-                end: "top 72%",
-                scrub: 0.5,
-              },
-            },
-          );
-          gsap.fromTo(
-            ".refill-wave.w2",
-            { opacity: 0 },
-            {
-              opacity: 0.55,
-              ease: "none",
-              scrollTrigger: {
-                trigger: pool,
-                start: "top 78%",
-                end: "top 72%",
-                scrub: 0.5,
+                onUpdate: (self) => {
+                  const alpha =
+                    ramp(self.progress / 0.1) *
+                    ramp((1 - self.progress) / 0.1);
+                  if (w1) w1.style.opacity = String(alpha);
+                  if (w2) w2.style.opacity = String(alpha * 0.55);
+                },
               },
             },
           );
@@ -200,29 +184,30 @@ export function PourFlow() {
   return (
     <div className="pour-flow" ref={ref}>
       <div className="pour-jug">
-        <svg aria-hidden fill="none" viewBox="0 0 130 95">
+        <svg aria-hidden fill="none" viewBox="0 0 150 100">
           <g className="jug-art">
-            {/* body */}
+            {/* kettle body */}
             <path
-              d="M36 34 H100 C110 34 116 42 116 52 V60 C116 74 106 84 92 84 H52 C40 84 32 74 32 62 Z"
+              d="M60 44 H114 C125 44 133 52 133 62 V64 C133 76 124 86 110 86 H74 C62 86 56 76 58 64 Z"
               stroke="var(--crema)"
               strokeLinejoin="round"
               strokeWidth="3"
             />
-            {/* spout */}
+            {/* gooseneck spout: rises from low on the body, hooks over, tip points down */}
             <path
-              d="M36 38 L14 56 L34 61"
+              d="M60 62 C40 60 32 48 31 36 C30 26 24 22 18 27 C14 31 13 38 15 45"
               stroke="var(--crema)"
-              strokeLinejoin="round"
-              strokeWidth="3"
+              strokeLinecap="round"
+              strokeWidth="4.5"
             />
             {/* lid + knob */}
-            <path d="M54 34 V27 H86 V34" stroke="var(--crema)" strokeWidth="3" />
-            <circle cx="70" cy="23" fill="var(--crema)" r="3.5" />
-            {/* handle */}
+            <path d="M72 44 V36 H102 V44" stroke="var(--crema)" strokeWidth="3" />
+            <circle cx="87" cy="32" fill="var(--crema)" r="3.5" />
+            {/* overhead handle */}
             <path
-              d="M116 48 h5 c9 0 9 20 0 20 h-7"
+              d="M74 36 C74 16 100 16 100 36"
               stroke="var(--crema)"
+              strokeLinecap="round"
               strokeWidth="3"
             />
           </g>
