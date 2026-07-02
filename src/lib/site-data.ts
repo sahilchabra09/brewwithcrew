@@ -5,6 +5,38 @@ export const navItems = [
   { href: "/about", label: "About" },
 ];
 
+export const heroCopy = {
+  kicker: "A product studio, brewed strong",
+  title: "Serious software, freshly brewed.",
+  sub: "Your technology partner for startups and growing businesses.",
+  body: "We build SaaS products, AI solutions, e-commerce platforms, and custom software that help founders move faster — from the first shot to the full pour.",
+};
+
+// `from` is the low resting value; the counter ticks up to `value` when
+// the stats come into view (visible delta regardless of screen size).
+export const roastStats = [
+  { label: "Bean to cup (MVP)", from: "2–4 weeks", value: "6–10 weeks" },
+  { label: "Active engagements", from: "2+", value: "12+" },
+  { label: "Industries served", from: "2", value: "8" },
+  { label: "Avg. partner NPS", from: "10", value: "72" },
+];
+
+export const marqueeItems = [
+  "Healthcare",
+  "Insurance SaaS",
+  "Real Estate",
+  "E-commerce",
+  "AI / ML",
+  "Sales Intelligence",
+  "Events",
+  "Marketing",
+];
+
+export const ctaCopy = {
+  title: "Good software, like good coffee, is worth doing right.",
+  body: "Tell us about your product, startup, or business goals — and what it would take to ship. First coffee's on us.",
+};
+
 export const industries = [
   "Healthcare",
   "Insurance SaaS",
@@ -47,6 +79,8 @@ export const serviceGroups = [
   {
     number: "01",
     title: "Startup Development",
+    blend: "The Espresso Shot",
+    blendTag: "fast · concentrated · precise",
     intro:
       "Go from idea to shipped product with a senior team that understands speed, risk, and runway.",
     items: [
@@ -59,6 +93,8 @@ export const serviceGroups = [
   {
     number: "02",
     title: "Dedicated Product Teams",
+    blend: "The House Blend",
+    blendTag: "your daily driver · always on",
     intro:
       "An embedded product engineering pod — designers, engineers, and PMs — that operates as your team.",
     items: [
@@ -71,6 +107,8 @@ export const serviceGroups = [
   {
     number: "03",
     title: "Business Solutions",
+    blend: "The Slow Brew",
+    blendTag: "custom · patient · potent",
     intro:
       "Custom software that replaces spreadsheets, generic SaaS, and manual work with tailored systems.",
     items: [
@@ -86,36 +124,42 @@ export const processSteps = [
   {
     number: "01",
     title: "Discovery",
+    brewLabel: "Sourcing",
     body: "We dig into the problem, the users, and the constraints. We map risk, define the north star, and identify the smallest valuable surface to ship.",
     outputs: ["Goals & success metrics", "Risk map", "MVP scope", "Engagement model"],
   },
   {
     number: "02",
     title: "Strategy",
+    brewLabel: "The Grind",
     body: "Architecture and roadmap come together. We make the boring-but-critical decisions early — stack, infra, data model, integrations — so engineering can move fast later.",
     outputs: ["System architecture", "Tech stack", "Phased roadmap", "Estimates"],
   },
   {
     number: "03",
     title: "Design",
+    brewLabel: "Blooming",
     body: "Interface and UX systems built for clarity and speed — not decoration. We design in production-grade fidelity from day one.",
     outputs: ["UX flows", "Design system", "Hi-fi prototypes", "Component library"],
   },
   {
     number: "04",
     title: "Development",
+    brewLabel: "Brewing",
     body: "Type-safe, observable, well-tested code shipped in weekly cycles. Demos every Friday. No surprises at the end of the quarter.",
     outputs: ["Weekly releases", "Code review & CI", "Test coverage", "Observability baked in"],
   },
   {
     number: "05",
     title: "Launch",
+    brewLabel: "The Pour",
     body: "Rollout, monitoring, and on-call coverage from day zero. We sweat the launch so the team can sleep.",
     outputs: ["Staged rollout", "Monitoring & alerts", "On-call coverage", "Runbooks"],
   },
   {
     number: "06",
     title: "Growth",
+    brewLabel: "Refills",
     body: "We iterate, scale, and harden as the business evolves. Most clients keep us on as their long-term engineering partner.",
     outputs: ["Performance work", "Scaling infra", "Feature velocity", "Knowledge transfer"],
   },

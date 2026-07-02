@@ -6,6 +6,7 @@ import {
   ProjectCard,
   SectionIntro,
 } from "@/components/site";
+import { Reveal, RevealStagger } from "@/components/gsap/primitives";
 import { projects } from "@/lib/site-data";
 
 function buildVideoEmbedUrl(videoUrl: string) {
@@ -88,10 +89,18 @@ export default async function WorkDetailPage({
     <PageShell>
       <section className="page-hero">
         <div className="container detail-hero-grid">
-          <div className="detail-hero-copy">
+          <Reveal className="detail-hero-copy" y={20}>
             <Link className="pill-link" href="/work">
               ← All work
             </Link>
+            <div className="batch-line">
+              <span className="roast-label">
+                Batch Nº {project.year} · {project.industry}
+              </span>
+              <span className="roast-label">
+                {project.status === "Live" ? "roasted & served" : project.status}
+              </span>
+            </div>
             <SectionIntro
               eyebrow={project.type}
               title={project.title}
@@ -109,7 +118,7 @@ export default async function WorkDetailPage({
                 </Link>
               </div>
             ) : null}
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -180,14 +189,14 @@ export default async function WorkDetailPage({
       <section className="section">
         <div className="container section-pad">
           <div style={{ display: "flex", justifyContent: "space-between", gap: "2rem", alignItems: "end", flexWrap: "wrap" }}>
-            <SectionIntro eyebrow="Continue exploring" title="Continue exploring" />
+            <SectionIntro eyebrow="More from the roastery" title="Continue exploring." />
             <ButtonRow primary={["All work", "/work"]} />
           </div>
-          <div className="work-grid" style={{ marginTop: "3.5rem" }}>
+          <RevealStagger className="work-grid" style={{ marginTop: "3.5rem" }}>
             {related.map((item) => (
               <ProjectCard key={item.slug} project={item} />
             ))}
-          </div>
+          </RevealStagger>
         </div>
       </section>
 
@@ -195,7 +204,7 @@ export default async function WorkDetailPage({
         <div className="container">
           <SectionIntro
             title="Have a product in mind?"
-            body="Tell us about it — we'll come back with a plan."
+            body="Tell us about it — we'll come back with a plan. First coffee's on us."
             centered
           />
           <ButtonRow primary={["Book a discovery call", "/contact"]} />

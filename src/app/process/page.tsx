@@ -1,20 +1,47 @@
-import { ButtonRow, PageShell, ProcessGrid, SectionIntro } from "@/components/site";
+import type { Metadata } from "next";
+import {
+  ButtonRow,
+  PageHero,
+  PageShell,
+  ProcessCards,
+} from "@/components/site";
+import { CoffeeRing } from "@/components/decor";
+import { RevealStagger, Squiggle } from "@/components/gsap/primitives";
+
+export const metadata: Metadata = {
+  title: "Process",
+  description:
+    "Six phases from sourcing to refills. Weekly delivery. Real, working software at the end of every cycle.",
+};
 
 export default function ProcessPage() {
   return (
     <PageShell>
-      <section className="page-hero">
-        <div className="container">
-          <SectionIntro
-            eyebrow="Process"
-            title="A premium product process — without the consulting theatre."
-            body="Six phases. Weekly delivery. Real, working software at the end of every cycle."
-          />
-        </div>
-      </section>
-      <section className="section">
+      <PageHero
+        eyebrow="Process · The Brew Method"
+        title={
+          <>
+            A premium product process — without the{" "}
+            <Squiggle>consulting theatre</Squiggle>.
+          </>
+        }
+        body="Six phases, from sourcing to refills. Weekly delivery. Real, working software at the end of every cycle."
+      />
+      <section className="section" style={{ position: "relative", overflow: "hidden" }}>
+        <CoffeeRing
+          className="section-ring"
+          size={420}
+          style={{ top: "-120px", right: "-140px" }}
+        />
+        <CoffeeRing
+          className="section-ring"
+          size={340}
+          style={{ bottom: "-100px", left: "-120px" }}
+        />
         <div className="container section-pad">
-          <ProcessGrid detailed />
+          <RevealStagger className="process-list" stagger={0.07}>
+            <ProcessCards detailed />
+          </RevealStagger>
           <ButtonRow primary={["Start your discovery call", "/contact"]} />
         </div>
       </section>

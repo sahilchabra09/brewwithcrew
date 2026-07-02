@@ -2,7 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { BeanField, Steam } from "@/components/decor";
+import { Magnetic, Reveal } from "@/components/gsap/primitives";
 import {
+  ctaCopy,
   navItems,
   principles,
   processSteps,
@@ -115,7 +118,7 @@ export function Footer() {
       <div className="footer-bottom">
         <div className="container">
           <p>© 2026 Brew with Crew. All rights reserved.</p>
-          <p className="mono">v1.0 · crafted with intent</p>
+          <p className="mono">brewed with intent · powered by caffeine &amp; clean code</p>
         </div>
       </div>
     </footer>
@@ -140,6 +143,29 @@ function FooterColumn({
         ))}
       </ul>
     </div>
+  );
+}
+
+export function PageHero({
+  eyebrow,
+  title,
+  body,
+  children,
+}: {
+  eyebrow?: string;
+  title: React.ReactNode;
+  body?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <section className="page-hero">
+      <div className="container" style={{ position: "relative" }}>
+        <Reveal y={20}>
+          <SectionIntro eyebrow={eyebrow} title={title} body={body} />
+          {children}
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
@@ -253,13 +279,14 @@ export function WorkGrid({ limit }: { limit?: number }) {
   );
 }
 
-export function ProcessGrid({ detailed = false }: { detailed?: boolean }) {
+export function ProcessCards({ detailed = false }: { detailed?: boolean }) {
   return (
-    <div className={detailed ? "process-list" : "process-grid"}>
+    <>
       {processSteps.map((step) => (
         <article className="process-card" key={step.title}>
           <div className="process-card-top">
             <span>{step.number}</span>
+            <span className="roast-label">{step.brewLabel}</span>
             <i />
           </div>
           <h3>{step.title}</h3>
@@ -276,6 +303,14 @@ export function ProcessGrid({ detailed = false }: { detailed?: boolean }) {
           ) : null}
         </article>
       ))}
+    </>
+  );
+}
+
+export function ProcessGrid({ detailed = false }: { detailed?: boolean }) {
+  return (
+    <div className={detailed ? "process-list" : "process-grid"}>
+      <ProcessCards detailed={detailed} />
     </div>
   );
 }
@@ -307,20 +342,30 @@ export function PrinciplesGrid() {
 }
 
 export function CtaSection({
-  title = "Ready to build something great?",
-  body = "Let's discuss your product, startup, or business goals — and what it would take to ship.",
+  title = ctaCopy.title,
+  body = ctaCopy.body,
 }: {
   title?: string;
   body?: string;
 }) {
   return (
     <section className="cta-section">
+      <BeanField count={5} interactive />
       <div className="container">
-        <SectionIntro eyebrow="Let's build" title={title} body={body} centered />
-        <ButtonRow
-          primary={["Schedule a call", "/contact"]}
-          secondary={["See recent work", "/work"]}
-        />
+        <Reveal>
+          <Steam className="cta-steam" />
+          <SectionIntro eyebrow="Let's brew" title={title} body={body} centered />
+          <div className="button-row" style={{ justifyContent: "center" }}>
+            <Magnetic>
+              <Link className="button primary" href="/contact">
+                Let&apos;s grab a coffee <span>→</span>
+              </Link>
+            </Magnetic>
+            <Link className="button secondary" href="/work">
+              See recent work <span>→</span>
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -329,7 +374,6 @@ export function CtaSection({
 export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
-      <Header />
       <main>{children}</main>
       <Footer />
     </div>

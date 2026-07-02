@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(16% 0.008 80);
-  --foreground: oklch(97% 0.005 80);
-  --surface: oklch(19% 0.008 80);
-  --surface-2: oklch(22% 0.009 80);
-  --hairline: oklch(100% 0 0 / 0.08);
-  --muted: oklch(24% 0.009 80);
-  --muted-foreground: oklch(68% 0.012 80);
+  /* Espresso noir — warm roasted neutrals, crema-gold accent */
+  --background: oklch(15% 0.014 60);
+  --foreground: oklch(96.5% 0.008 80);
+  --surface: oklch(18.5% 0.016 60);
+  --surface-2: oklch(22% 0.018 60);
+  --hairline: oklch(88% 0.04 75 / 0.1);
+  --muted: oklch(24% 0.016 60);
+  --muted-foreground: oklch(70% 0.02 70);
   --brew: oklch(82% 0.13 75);
   --brew-foreground: oklch(18% 0.02 75);
+  --crema: oklch(89% 0.055 85);
+  --latte: oklch(75% 0.045 75);
+}
+
+/* next/font variables land on body, so the alias must live there too */
+body {
+  --font-display: var(--font-fraunces), Georgia, serif;
 }
 
 @theme inline {
@@ -41,6 +49,17 @@ body {
 ::selection {
   background: var(--brew);
   color: var(--brew-foreground);
+}
+
+/* Film grain for warmth — sits above everything, never intercepts input */
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  content: "";
 }
 
 a {
@@ -331,6 +350,26 @@ textarea {
   opacity: 0.6;
 }
 
+/* soft gold bloom that blooms up behind the headline on entrance */
+.hero-bloom {
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: min(640px, 70vw);
+  height: min(640px, 70vw);
+  border-radius: 999px;
+  background: radial-gradient(
+    closest-side,
+    oklch(82% 0.13 75 / 0.22),
+    oklch(82% 0.13 75 / 0.06) 45%,
+    transparent 72%
+  );
+  filter: blur(52px);
+  opacity: 0.9;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
 .hero-inner {
   position: relative;
   padding-block: 6rem;
@@ -359,12 +398,29 @@ textarea {
 .hero h1 {
   max-width: 56rem;
   margin-top: 1.5rem;
-  font-family: var(--font-space-grotesk), var(--font-inter-tight), sans-serif;
-  font-size: clamp(3rem, 7vw, 4.5rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7.5vw, 5.25rem);
+  font-weight: 480;
+  font-variation-settings: "SOFT" 60, "opsz" 60;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--crema);
   text-wrap: balance;
+}
+
+/* hidden until the GSAP timeline reveals it — kills the first-paint flash */
+.hero-headline {
+  opacity: 0;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--brew);
+}
+
+/* Prevent SplitText line masks from clipping descenders (e.g. italic "y") */
+.hero h1 > div {
+  padding-bottom: 0.15em;
 }
 
 .hero-subtitle {
@@ -482,11 +538,19 @@ textarea {
 
 .section-intro h2 {
   margin-top: 1rem;
+  font-family: var(--font-display);
   font-size: clamp(1.875rem, 5vw, 3rem);
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
+  font-weight: 460;
+  font-variation-settings: "SOFT" 50, "opsz" 40;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--crema);
   text-wrap: balance;
+}
+
+.section-intro h2 em {
+  font-style: italic;
+  color: var(--brew);
 }
 
 .section-intro p {
@@ -1018,7 +1082,7 @@ textarea {
 
 .outcome-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 1px;
   overflow: hidden;
   border: 1px solid var(--hairline);
@@ -1149,6 +1213,681 @@ textarea {
   font-family: var(--font-jetbrains-mono), monospace;
 }
 
+/* ————— Roastery additions ————— */
+
+.detail-hero-copy .section-intro h2 {
+  font-family: var(--font-display);
+}
+
+.roast-label {
+  color: var(--latte);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.blend-label {
+  display: inline-block;
+  margin-top: 0.375rem;
+  color: var(--brew);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.0625rem;
+}
+
+/* Hero steam rises off the end of the headline */
+.hero-steam {
+  position: absolute;
+  top: -72px;
+  left: min(52rem, 84%);
+  display: none;
+  width: 72px;
+  height: 96px;
+  color: var(--latte);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .hero-steam {
+    display: block;
+  }
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1px;
+  margin-top: 3.5rem;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: var(--hairline);
+}
+
+.hero-stats div {
+  position: relative;
+  background: oklch(15% 0.014 60 / 0.72);
+  backdrop-filter: blur(6px);
+  padding: 1.25rem 1.5rem;
+  overflow: hidden;
+}
+
+/* a warm wash bleeds up from the base of each stat cell */
+.hero-stats div::before {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 60%;
+  background: linear-gradient(
+    to top,
+    oklch(82% 0.13 75 / 0.14),
+    transparent
+  );
+  pointer-events: none;
+  content: "";
+}
+
+.hero-stats strong {
+  position: relative;
+  display: block;
+  margin-top: 0.375rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  background: linear-gradient(105deg, var(--crema), var(--brew) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ————— About: warmth & crew mark ————— */
+
+.crew-mark {
+  width: 80px;
+  height: auto;
+  margin-top: 2rem;
+  color: var(--brew);
+}
+
+.story-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.story-glow {
+  position: absolute;
+  top: -10%;
+  right: -6%;
+  width: min(560px, 70vw);
+  height: min(560px, 70vw);
+  border-radius: 999px;
+  background: radial-gradient(
+    closest-side,
+    oklch(82% 0.13 75 / 0.16),
+    transparent 70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* ————— Inline paragraph / copy emphasis ————— */
+
+.ink {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--brew);
+}
+
+.ink-strong {
+  font-weight: 600;
+  color: var(--crema);
+}
+
+.ink-strong::selection {
+  background: var(--brew);
+  color: var(--brew-foreground);
+}
+
+/* Marquee ticker */
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--hairline);
+  padding-block: 1.125rem;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-row {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.marquee-row span {
+  display: inline-flex;
+  align-items: center;
+  color: var(--latte);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marquee-row i {
+  margin-inline: 1.75rem;
+  color: var(--brew);
+  font-style: normal;
+  font-size: 0.5rem;
+}
+
+/* Decorative fields */
+.bean-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.section-ring {
+  position: absolute;
+  color: var(--brew);
+  opacity: 0.05;
+  pointer-events: none;
+  animation: ring-spin 120s linear infinite;
+}
+
+.section-ring:nth-of-type(2) {
+  animation-direction: reverse;
+  animation-duration: 150s;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Brew Method — the signature pinned scene */
+.brew-scene {
+  position: relative;
+}
+
+.brew-stage {
+  display: grid;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.brew-left {
+  display: grid;
+  gap: 2rem;
+  align-content: start;
+}
+
+.brew-cup-wrap {
+  display: none;
+  color: var(--crema);
+}
+
+.brew-cup-wrap svg {
+  width: min(240px, 100%);
+  margin-inline: auto;
+}
+
+.brew-progress {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.brew-steps {
+  display: grid;
+  gap: 1rem;
+}
+
+.brew-step {
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: var(--surface);
+  padding: 1.5rem;
+  transition: border-color 200ms ease, background 200ms ease;
+}
+
+.brew-step-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brew-step h3 {
+  margin-top: 0.875rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.brew-step p {
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.brew-step.active {
+  border-color: oklch(82% 0.13 75 / 0.45);
+  background: var(--surface-2);
+}
+
+.brew-step.active .roast-label {
+  color: var(--brew);
+}
+
+/* CTA steam accent */
+.cta-steam {
+  width: 54px;
+  height: 72px;
+  margin-inline: auto;
+  color: var(--latte);
+}
+
+/* ————— Intro overlay ————— */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--background);
+}
+
+/* Cursor glow — trails the pointer, decorative only */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+  border-radius: 999px;
+  background: radial-gradient(
+    closest-side,
+    oklch(82% 0.13 75 / 0.09),
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Coffee-cup-fill burst spawned at each click (fine pointers). Positioned
+   via GSAP transform (x/y); margin centers it on the pointer. */
+.click-brew {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  color: var(--crema);
+  pointer-events: none;
+}
+
+/* while a cup is brewing, hide the real cursor so the cup is the cursor */
+@media (pointer: fine) {
+  body.brewing,
+  body.brewing * {
+    cursor: none !important;
+  }
+}
+
+/* Custom coffee-bean cursor on desktop; interactive elements keep intent */
+@media (pointer: fine) {
+  body {
+    cursor: url("/cursor-bean.svg") 12 12, auto;
+  }
+
+  a,
+  button,
+  summary,
+  label,
+  [role="button"],
+  .project-card,
+  .chips span {
+    cursor: url("/cursor-bean.svg") 12 12, pointer;
+  }
+
+  input,
+  textarea,
+  select {
+    cursor: text;
+  }
+}
+
+.intro-inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+}
+
+.intro-inner svg {
+  width: min(200px, 44vw);
+}
+
+.intro-wordmark {
+  visibility: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 480;
+  color: var(--crema);
+}
+
+.intro-wordmark span {
+  font-style: italic;
+  color: var(--latte);
+}
+
+.intro-tagline {
+  visibility: hidden;
+  margin-top: 0.5rem;
+}
+
+/* ————— Word emphasis ————— */
+
+.squiggle {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* keep a comfortable gap between a squiggled heading and whatever follows */
+.section-intro h2:has(.squiggle),
+.hero-subtitle:has(.squiggle) {
+  padding-bottom: 0.3em;
+}
+
+.squiggle-line {
+  position: absolute;
+  bottom: -0.05em;
+  left: 0;
+  width: 100%;
+  height: 0.22em;
+  /* a single smooth wave that tiles horizontally at constant amplitude */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10' viewBox='0 0 24 10' fill='none'%3E%3Cpath d='M0 6 Q 6 1, 12 6 T 24 6' stroke='%23eab364' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: auto 100%;
+  pointer-events: none;
+}
+
+.hl-fill {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hl-mark {
+  position: absolute;
+  /* vertical bleed covers descenders (y, g, p); tight horizontal bleed so
+     the block never paints over a trailing period or comma */
+  inset: -0.06em -0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: var(--brew);
+  color: var(--brew-foreground);
+  line-height: 1;
+  clip-path: inset(0 0% 0 0);
+}
+
+/* ————— Global interaction language ————— */
+
+.chips span {
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.chips span:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: oklch(82% 0.13 75 / 0.6);
+  background: oklch(82% 0.13 75 / 0.16);
+  color: var(--crema);
+}
+
+.project-card {
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px oklch(0% 0 0 / 0.35);
+}
+
+.project-art-image {
+  transition: transform 400ms ease;
+}
+
+.project-card:hover .project-art-image {
+  transform: scale(1.04);
+}
+
+.project-footer span:last-child {
+  transition: transform 200ms ease, color 200ms ease;
+}
+
+.project-card:hover .project-footer span:last-child {
+  transform: translateX(3px);
+  color: var(--brew);
+}
+
+.button span {
+  transition: transform 200ms ease;
+}
+
+.button:hover span {
+  transform: translateX(3px);
+}
+
+.button.secondary:hover {
+  border-color: oklch(82% 0.13 75 / 0.5);
+}
+
+.tags span {
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.project-card:hover .tags span,
+.tags span:hover {
+  border-color: oklch(82% 0.13 75 / 0.35);
+  color: var(--latte);
+}
+
+/* cards living in 1px-gap grids: feedback without transforms */
+.surface-card,
+.process-card {
+  transition: background 220ms ease, box-shadow 220ms ease;
+}
+
+.surface-card:hover,
+.process-card:hover {
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px oklch(82% 0.13 75 / 0.25);
+}
+
+.principle-card {
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.principle-card:hover {
+  border-color: oklch(82% 0.13 75 / 0.4);
+  transform: translateY(-3px);
+}
+
+.process-card-top span:first-child,
+.process-card-top .roast-label {
+  transition: color 220ms ease;
+}
+
+.process-card:hover .process-card-top span:first-child,
+.process-card:hover .process-card-top .roast-label {
+  color: var(--brew);
+}
+
+.process-card-top i {
+  transition: width 260ms ease, background 260ms ease;
+}
+
+.process-card:hover .process-card-top i {
+  width: 4rem;
+  background: oklch(82% 0.13 75 / 0.6);
+}
+
+.outputs li {
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.outputs li:hover {
+  border-color: oklch(82% 0.13 75 / 0.5);
+  color: var(--crema);
+}
+
+.footer-links a {
+  background-image: linear-gradient(var(--brew), var(--brew));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 240ms ease, color 180ms ease;
+}
+
+.footer-links a:hover {
+  background-size: 100% 1px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: oklch(82% 0.13 75 / 0.55);
+  box-shadow: 0 0 0 3px oklch(82% 0.13 75 / 0.12);
+}
+
+.send-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* a warm shimmer sweeps across on hover */
+.send-btn::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    oklch(89% 0.055 85 / 0.65) 50%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  background-position: 150% 0;
+  content: "";
+}
+
+.send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px oklch(82% 0.13 75 / 0.25);
+}
+
+.send-btn:hover::before {
+  animation: send-shimmer 0.7s ease;
+}
+
+@keyframes send-shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+.send-arrow {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.send-btn:hover .send-arrow {
+  transform: translateX(4px);
+}
+
+.send-btn:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+
+.contact-form input,
+.contact-form textarea {
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.brew-step {
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    transform 220ms ease;
+}
+
+.brew-step:hover {
+  transform: translateY(-2px);
+  border-color: oklch(82% 0.13 75 / 0.45);
+}
+
+/* ————— Case-study batch line ————— */
+.batch-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .brew-stage {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 4rem;
+  }
+
+  .brew-cup-wrap {
+    display: block;
+  }
+
+  /* two columns so all six steps stay visible while the scene is pinned */
+  .brew-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+
+  .brew-step {
+    padding: 1.25rem;
+  }
+}
+
 @media (max-width: 767px) {
   .detail-hero-grid {
     min-height: 24rem;
@@ -1268,5 +2007,29 @@ textarea {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  /* emphasis marks render fully, statically */
+  .squiggle-line,
+  .hl-mark {
+    clip-path: inset(0 0% 0 0) !important;
+  }
+
+  /* GSAP never runs to reveal it, so show it outright */
+  .hero-headline {
+    opacity: 1 !important;
+  }
+
+  .intro-overlay {
+    display: none !important;
+  }
+
+  .intro-wordmark,
+  .intro-tagline {
+    visibility: visible;
+  }
+
+  .cursor-glow {
+    display: none !important;
   }
 }

@@ -1,4 +1,24 @@
-import { ButtonRow, PageShell, PrinciplesGrid, SectionIntro } from "@/components/site";
+import type { Metadata } from "next";
+import {
+  CtaSection,
+  PageHero,
+  PageShell,
+  PrinciplesGrid,
+  SectionIntro,
+} from "@/components/site";
+import { BeanField, CrewMark } from "@/components/decor";
+import {
+  HighlightFill,
+  Reveal,
+  RevealStagger,
+  Squiggle,
+} from "@/components/gsap/primitives";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Brew with Crew is a small, senior product engineering team that embeds with founders to design, build, and scale software.",
+};
 
 const testimonials = [
   [
@@ -21,27 +41,42 @@ const testimonials = [
 export default function AboutPage() {
   return (
     <PageShell>
-      <section className="page-hero">
-        <div className="container">
-          <SectionIntro
-            eyebrow="About"
-            title="A technology partner helping founders turn ideas into products."
-            body="Brew with Crew is a small, senior product engineering team. We embed with founders and operating teams to design, build, and scale software that businesses actually rely on."
-          />
-        </div>
-      </section>
-      <section className="section">
+      <PageHero
+        eyebrow="About"
+        title={
+          <>
+            The <Squiggle>crew</Squiggle> behind the brew.
+          </>
+        }
+        body="Brew with Crew is a small, senior product engineering team. We embed with founders and operating teams to design, build, and scale software that businesses actually rely on."
+      >
+        <CrewMark className="crew-mark" />
+      </PageHero>
+      <section className="section story-section">
+        <div className="story-glow" />
+        <BeanField count={6} interactive />
         <div className="container section-pad case-layout">
-          <SectionIntro
-            eyebrow="Our story"
-            title="Founders don't fail for lack of ideas. They fail for lack of execution."
-          />
-          <div className="case-copy">
+          <Reveal>
+            <SectionIntro
+              eyebrow="Our story"
+              title={
+                <>
+                  Founders don&apos;t fail for lack of ideas. They fail for lack
+                  of <HighlightFill>execution</HighlightFill>.
+                </>
+              }
+            />
+          </Reveal>
+          <Reveal className="case-copy" delay={0.1}>
             <p>
               We started Brew with Crew because too many great ideas were
               getting stuck on the engineering side. Founders had funding,
-              domain expertise, and conviction — but no team capable of turning
-              the vision into a real, scalable product.
+              domain expertise, and conviction — but{" "}
+              <span className="ink-strong">
+                no team capable of turning the vision into a real, scalable
+                product
+              </span>
+              .
             </p>
             <p>
               So we built one. A small, opinionated group of product engineers,
@@ -50,22 +85,45 @@ export default function AboutPage() {
               tooling, real-estate products, and commerce systems — for founders
               and operators across the spectrum.
             </p>
-            <p>Businesses focus on growth. We handle technology.</p>
-          </div>
+            <p>
+              Businesses focus on growth.{" "}
+              <span className="ink-strong">We handle technology.</span>{" "}
+              That&apos;s the whole recipe.
+            </p>
+          </Reveal>
         </div>
       </section>
       <section className="section">
         <div className="container section-pad">
-          <SectionIntro eyebrow="Principles" title="What we believe." />
-          <div style={{ marginTop: "3.5rem" }}>
+          <Reveal>
+            <SectionIntro
+              eyebrow="Principles"
+              title={
+                <>
+                  What we <em>believe</em>.
+                </>
+              }
+            />
+          </Reveal>
+          <Reveal style={{ marginTop: "3.5rem" }}>
             <PrinciplesGrid />
-          </div>
+          </Reveal>
         </div>
       </section>
       <section className="section">
         <div className="container section-pad">
-          <SectionIntro eyebrow="What partners say" title="The work speaks. So do the people we ship for." />
-          <div className="card-grid" style={{ marginTop: "3.5rem" }}>
+          <Reveal>
+            <SectionIntro
+              eyebrow="What partners say"
+              title={
+                <>
+                  The work speaks. So do the people we{" "}
+                  <HighlightFill>ship</HighlightFill> for.
+                </>
+              }
+            />
+          </Reveal>
+          <RevealStagger className="card-grid" style={{ marginTop: "3.5rem" }}>
             {testimonials.map(([quote, role, company]) => (
               <article className="surface-card" key={quote}>
                 <p style={{ color: "var(--foreground)", fontSize: "1rem" }}>
@@ -77,15 +135,13 @@ export default function AboutPage() {
                 <p>{company}</p>
               </article>
             ))}
-          </div>
+          </RevealStagger>
         </div>
       </section>
-      <section className="cta-section">
-        <div className="container">
-          <SectionIntro title="Let's build the next one together." centered />
-          <ButtonRow primary={["Book a discovery call", "/contact"]} />
-        </div>
-      </section>
+      <CtaSection
+        title="Let's brew the next one together."
+        body="Tell us what you're building — we'll bring the crew."
+      />
     </PageShell>
   );
 }
