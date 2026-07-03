@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* liquid-glass-react styles itself with Tailwind utilities — scan it too */
+@source "../../node_modules/liquid-glass-react/dist";
 
 :root {
   /* Espresso noir — warm roasted neutrals, crema-gold accent */
@@ -81,6 +83,7 @@ textarea {
 }
 
 .site-header {
+  --nav-width: min(calc((100vw - 2rem) * 0.9), 1240px);
   position: fixed;
   top: 0;
   left: 0;
@@ -93,18 +96,22 @@ textarea {
   padding: 1rem;
 }
 
+/* sized anchor for the liquid-glass pill (the glass self-centers in it) */
+.header-glass-slot {
+  position: relative;
+  width: var(--nav-width);
+  height: 4rem;
+  pointer-events: auto;
+}
+
 .header-inner {
   position: relative;
   display: flex;
-  width: 90%;
+  width: var(--nav-width);
   height: 4rem;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  border: 1px solid oklch(100% 0 0 / 0.1);
-  border-radius: 999px;
-  background: oklch(13% 0.007 80 / 0.5);
-  backdrop-filter: blur(12px);
   pointer-events: auto;
   padding: 0.5rem 1.5rem;
 }
@@ -1422,6 +1429,115 @@ textarea {
   transform: translateY(-1px);
 }
 
+/* ————— About: testimonial ring ————— */
+
+.tcarousel {
+  margin-top: 3.5rem;
+}
+
+.tc-stage {
+  position: relative;
+  height: 300px;
+  perspective: 1400px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.tc-stage:active {
+  cursor: grabbing;
+}
+
+.tc-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(460px, 86%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--hairline);
+  border-radius: 1rem;
+  background: var(--surface);
+  padding: 2rem;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+.tc-card.is-active {
+  border-color: oklch(82% 0.13 75 / 0.35);
+  box-shadow: 0 24px 60px oklch(0% 0 0 / 0.4);
+}
+
+.tc-quote {
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  line-height: 1.5;
+}
+
+.tc-role {
+  margin-top: 1.25rem;
+}
+
+.tc-company {
+  margin-top: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.tc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.tc-arrow {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--foreground);
+  transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+
+.tc-arrow:hover {
+  border-color: oklch(82% 0.13 75 / 0.5);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+
+.tc-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tc-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: oklch(88% 0.04 75 / 0.2);
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.tc-dot.on {
+  background: var(--brew);
+  transform: scale(1.25);
+}
+
+@media (max-width: 640px) {
+  .tc-stage {
+    height: 340px;
+  }
+}
+
 /* ————— About: warmth & crew mark ————— */
 
 .crew-mark {
@@ -1585,7 +1701,15 @@ textarea {
   border-radius: 1rem;
   background: var(--surface);
   padding: 1.5rem;
-  transition: border-color 200ms ease, background 200ms ease;
+  /* unbrewed steps sit in the dark — scrolling is what lights them up */
+  opacity: 0.04;
+  filter: saturate(0.4);
+  transition:
+    border-color 260ms ease,
+    background 260ms ease,
+    opacity 320ms ease,
+    filter 320ms ease,
+    box-shadow 320ms ease;
 }
 
 .brew-step-top {
@@ -1610,6 +1734,9 @@ textarea {
 .brew-step.active {
   border-color: oklch(82% 0.13 75 / 0.45);
   background: var(--surface-2);
+  opacity: 1;
+  filter: none;
+  box-shadow: 0 0 32px oklch(82% 0.13 75 / 0.12);
 }
 
 .brew-step.active .roast-label {
@@ -1981,10 +2108,13 @@ textarea {
   transition:
     border-color 220ms ease,
     background 220ms ease,
-    transform 220ms ease;
+    transform 220ms ease,
+    opacity 320ms ease,
+    filter 320ms ease,
+    box-shadow 320ms ease;
 }
 
-.brew-step:hover {
+.brew-step.active:hover {
   transform: translateY(-2px);
   border-color: oklch(82% 0.13 75 / 0.45);
 }
@@ -2049,8 +2179,8 @@ textarea {
     padding-inline: 2rem;
   }
 
-  .header-inner {
-    width: 70%;
+  .site-header {
+    --nav-width: min(calc((100vw - 2rem) * 0.7), 1240px);
   }
 
   .logo {
@@ -2149,6 +2279,12 @@ textarea {
   /* GSAP never runs to reveal it, so show it outright */
   .hero-headline {
     opacity: 1 !important;
+  }
+
+  /* brew steps render lit — no scroll choreography to reveal them */
+  .brew-step {
+    opacity: 1 !important;
+    filter: none !important;
   }
 
   /* the pour renders finished: borders drawn, pool full, waves shown */

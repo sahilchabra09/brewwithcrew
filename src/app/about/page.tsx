@@ -6,11 +6,11 @@ import {
   PrinciplesGrid,
   SectionIntro,
 } from "@/components/site";
+import { TestimonialCarousel } from "@/components/about/testimonial-carousel";
 import { BeanField, CrewMark } from "@/components/decor";
 import {
   HighlightFill,
   Reveal,
-  RevealStagger,
   Squiggle,
 } from "@/components/gsap/primitives";
 
@@ -19,24 +19,6 @@ export const metadata: Metadata = {
   description:
     "Brew with Crew is a small, senior product engineering team that embeds with founders to design, build, and scale software.",
 };
-
-const testimonials = [
-  [
-    "They became our product team. Inside two months we were shipping faster than we'd managed in the previous year.",
-    "Founder",
-    "Insurance SaaS · Confidential",
-  ],
-  [
-    "Cleanest engineering org we've worked with. Specs in, working product out — every Friday.",
-    "CTO",
-    "Healthcare platform",
-  ],
-  [
-    "They cared about the business outcome, not the ticket. That's rare and it changed how we shipped.",
-    "COO",
-    "E-commerce",
-  ],
-];
 
 export default function AboutPage() {
   return (
@@ -123,19 +105,7 @@ export default function AboutPage() {
               }
             />
           </Reveal>
-          <RevealStagger className="card-grid" style={{ marginTop: "3.5rem" }}>
-            {testimonials.map(([quote, role, company]) => (
-              <article className="surface-card" key={quote}>
-                <p style={{ color: "var(--foreground)", fontSize: "1rem" }}>
-                  “{quote}”
-                </p>
-                <p className="eyebrow" style={{ marginTop: "1.5rem" }}>
-                  {role}
-                </p>
-                <p>{company}</p>
-              </article>
-            ))}
-          </RevealStagger>
+          <TestimonialCarousel />
         </div>
       </section>
       <CtaSection

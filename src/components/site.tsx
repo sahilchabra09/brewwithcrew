@@ -1,8 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { BeanField, Steam } from "@/components/decor";
+
+// client-only: the glass effect measures the DOM and tracks the pointer
+const LiquidGlass = dynamic(() => import("liquid-glass-react"), {
+  ssr: false,
+});
 import { Magnetic, Reveal } from "@/components/gsap/primitives";
 import {
   ctaCopy,
@@ -35,32 +41,46 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="container header-inner">
-        <div onClick={closeMenu}>
-          <Logo />
-        </div>
-        <nav className="desktop-nav">
-          {navItems.map((item) => (
-            <Link href={item.href} key={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Link className="pill-link desktop-cta" href="/contact">
-          Book a call <span>→</span>
-        </Link>
-        <button
-          aria-controls={mobileNavId}
-          aria-expanded={isMenuOpen}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="menu-button"
-          onClick={() => setIsMenuOpen((current) => !current)}
-          type="button"
+      <div className="header-glass-slot">
+        <LiquidGlass
+          blurAmount={0.25}
+          cornerRadius={999}
+          displacementScale={56}
+          elasticity={0.12}
+          mode="standard"
+          padding="0px"
+          saturation={130}
+          style={{ position: "absolute", top: "50%", left: "50%" }}
         >
-          <span />
-          <span />
-          <span />
-        </button>
+          <div className="header-inner">
+            <div onClick={closeMenu}>
+              <Logo />
+            </div>
+            <nav className="desktop-nav">
+              {navItems.map((item) => (
+                <Link href={item.href} key={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <Link className="pill-link desktop-cta" href="/contact">
+              Book a call <span>→</span>
+            </Link>
+            <button
+              aria-controls={mobileNavId}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="menu-button"
+              onClick={() => setIsMenuOpen((current) => !current)}
+              type="button"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </LiquidGlass>
+        {/* outside the glass so its rounded clip never cuts the dropdown */}
         <nav
           aria-label="Mobile navigation"
           className={isMenuOpen ? "mobile-nav open" : "mobile-nav"}
