@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* liquid-glass-react styles itself with Tailwind utilities — scan it too */
-@source "../../node_modules/liquid-glass-react/dist";
 
 :root {
   /* Espresso noir — warm roasted neutrals, crema-gold accent */
@@ -104,6 +102,11 @@ textarea {
   pointer-events: auto;
 }
 
+/*
+ * Hand-built liquid glass: a luminous film over a real backdrop blur
+ * (dark content alone frosts invisibly — the light film is what makes
+ * the glass read), plus rim lensing and a specular top shine.
+ */
 .header-inner {
   position: relative;
   display: flex;
@@ -112,8 +115,58 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  border: 1px solid oklch(100% 0 0 / 0.22);
+  border-radius: 999px;
+  background: linear-gradient(
+    115deg,
+    oklch(100% 0 0 / 0.14),
+    oklch(100% 0 0 / 0.05) 42%,
+    oklch(82% 0.13 75 / 0.08) 78%,
+    oklch(100% 0 0 / 0.1)
+  );
+  -webkit-backdrop-filter: blur(14px) saturate(160%) brightness(1.12);
+  backdrop-filter: blur(14px) saturate(160%) brightness(1.12);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.3),
+    inset 0 -1px 1px oklch(100% 0 0 / 0.1),
+    inset 2px 0 2px -1px oklch(100% 0 0 / 0.12),
+    inset -2px 0 2px -1px oklch(100% 0 0 / 0.12),
+    0 12px 32px oklch(0% 0 0 / 0.35);
   pointer-events: auto;
   padding: 0.5rem 1.5rem;
+}
+
+/* rim lensing: a thin ring that blurs and brightens harder than the body,
+   mimicking the edge refraction of real curved glass */
+.header-inner::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  -webkit-backdrop-filter: blur(4px) brightness(1.5) saturate(190%);
+  backdrop-filter: blur(4px) brightness(1.5) saturate(190%);
+  padding: 3px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box exclude,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box exclude,
+    linear-gradient(#fff 0 0);
+  content: "";
+}
+
+/* specular shine along the top curve */
+.header-inner::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    130% 70% at 50% -10%,
+    oklch(100% 0 0 / 0.18),
+    transparent 55%
+  );
+  pointer-events: none;
+  content: "";
 }
 
 .logo {
@@ -1701,8 +1754,8 @@ textarea {
   border-radius: 1rem;
   background: var(--surface);
   padding: 1.5rem;
-  /* unbrewed steps sit in the dark — scrolling is what lights them up */
-  opacity: 0.04;
+  /* unbrewed steps are pitch dark — only the scroll brews them visible */
+  opacity: 0.015;
   filter: saturate(0.4);
   transition:
     border-color 260ms ease,
