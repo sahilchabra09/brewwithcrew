@@ -12,7 +12,7 @@ import {
   STATS_REVEAL_EVENT,
 } from "@/components/gsap/primitives";
 import { INTRO_DONE_EVENT, introIsPending } from "@/components/intro";
-import { heroCopy, roastStats } from "@/lib/site-data";
+import { roastStats } from "@/lib/site-data";
 
 gsap.registerPlugin(SplitText);
 
@@ -37,7 +37,6 @@ export function Hero() {
           // reveal it here — masked lines keep it invisible until they rise
           .set(".hero-headline", { autoAlpha: 1 })
           .from(".hero-bloom", { scale: 0.6, autoAlpha: 0, duration: 1.2 })
-          .from(".hero-kicker", { y: 16, autoAlpha: 0, duration: 0.5 }, 0.1)
           .from(
             split.lines,
             {
@@ -144,10 +143,6 @@ export function Hero() {
       <div aria-hidden className="hero-bloom" />
       <BeanField className="hero-beans" count={6} />
       <div className="container hero-inner">
-        <div className="badge hero-kicker">
-          <span />
-          {heroCopy.kicker}
-        </div>
         <div style={{ position: "relative" }}>
           <Steam className="hero-steam" />
           <h1 className="hero-headline">

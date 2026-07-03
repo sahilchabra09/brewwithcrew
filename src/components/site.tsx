@@ -35,32 +35,35 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <div className="container header-inner">
-        <div onClick={closeMenu}>
-          <Logo />
+      <div className="header-glass-slot">
+        <div className="header-inner">
+          <div onClick={closeMenu}>
+            <Logo />
+          </div>
+          <nav className="desktop-nav">
+            {navItems.map((item) => (
+              <Link href={item.href} key={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <Link className="pill-link desktop-cta" href="/contact">
+            Book a call <span>→</span>
+          </Link>
+          <button
+            aria-controls={mobileNavId}
+            aria-expanded={isMenuOpen}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="menu-button"
+            onClick={() => setIsMenuOpen((current) => !current)}
+            type="button"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
-        <nav className="desktop-nav">
-          {navItems.map((item) => (
-            <Link href={item.href} key={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Link className="pill-link desktop-cta" href="/contact">
-          Book a call <span>→</span>
-        </Link>
-        <button
-          aria-controls={mobileNavId}
-          aria-expanded={isMenuOpen}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="menu-button"
-          onClick={() => setIsMenuOpen((current) => !current)}
-          type="button"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {/* outside the glass so its rounded clip never cuts the dropdown */}
         <nav
           aria-label="Mobile navigation"
           className={isMenuOpen ? "mobile-nav open" : "mobile-nav"}

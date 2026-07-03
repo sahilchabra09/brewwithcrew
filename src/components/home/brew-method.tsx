@@ -20,8 +20,11 @@ export function BrewMethod() {
     () => {
       const mm = gsap.matchMedia();
 
+      // Pinned scene only where the whole stage fits: wide, TALL viewports
+      // (short laptops used to start the fill before the cup was even
+      // visible — they get the stacked version instead).
       mm.add(
-        "(min-width: 900px) and (prefers-reduced-motion: no-preference) and (pointer: fine)",
+        "(min-width: 900px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) and (pointer: fine)",
         () => {
           const root = ref.current;
           if (!root) return;
@@ -31,46 +34,55 @@ export function BrewMethod() {
           const readout = root.querySelector<HTMLElement>(".brew-readout");
           if (!liquid) return;
 
+          // First 15% of the pin is a dead zone so the brewing only starts
+          // once the scene has settled fully in view.
+          const DEAD = 0.15;
+          const brew = (p: number) =>
+            Math.max(0, Math.min(1, (p - DEAD) / (1 - DEAD)));
+
           // animate the rect's geometry (not transforms — SVG transform
           // matrices at scale 0 produce NaN warnings in some browsers)
           gsap.set(liquid, { attr: { height: 0, y: 158 } });
-          gsap.to(liquid, {
-            attr: { height: 98, y: 60 },
-            ease: "none",
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: ref.current,
               start: "top top+=96",
               end: "+=1800",
               pin: true,
+              anticipatePin: 1,
               scrub: 0.4,
               onUpdate: (self) => {
-                const active = Math.min(
-                  steps.length - 1,
-                  Math.floor(self.progress * steps.length),
-                );
+                const p = brew(self.progress);
+                const active =
+                  p === 0
+                    ? -1
+                    : Math.min(steps.length - 1, Math.floor(p * steps.length));
                 steps.forEach((step, i) =>
                   step.classList.toggle("active", i <= active),
                 );
                 if (steam) {
-                  steam.style.opacity = String(
-                    Math.max(0, (self.progress - 0.86) / 0.14),
-                  );
+                  steam.style.opacity = String(Math.max(0, (p - 0.86) / 0.14));
                 }
                 if (readout) {
                   readout.textContent =
-                    self.progress >= 0.999
+                    p >= 0.999
                       ? "extraction complete · ready to pour"
-                      : `extraction ${Math.round(self.progress * 100)}%`;
+                      : `extraction ${Math.round(p * 100)}%`;
                 }
               },
             },
+          });
+          tl.to({}, { duration: DEAD }).to(liquid, {
+            attr: { height: 98, y: 60 },
+            ease: "none",
+            duration: 1 - DEAD,
           });
         },
       );
 
       // Everywhere else: simple stagger, every step fully styled
       mm.add(
-        "(max-width: 899px), (prefers-reduced-motion: reduce), (pointer: coarse)",
+        "(max-width: 899px), (max-height: 759px), (prefers-reduced-motion: reduce), (pointer: coarse)",
         () => {
           const steps = gsap.utils.toArray<HTMLElement>(".brew-step");
           steps.forEach((step) => step.classList.add("active"));

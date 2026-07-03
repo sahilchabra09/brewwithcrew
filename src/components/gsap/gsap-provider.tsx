@@ -1,5 +1,6 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useLayoutEffect } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -17,6 +18,9 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, useGSAP);
  */
 function SmootherInit() {
   useGSAP(() => {
+    // SPA routing: never let ScrollTrigger restore the previous page's
+    // scroll position after a refresh (each route starts at the top)
+    ScrollTrigger.clearScrollMemory("manual");
     const mm = gsap.matchMedia();
     mm.add(
       "(prefers-reduced-motion: no-preference) and (pointer: fine)",
@@ -35,11 +39,60 @@ function SmootherInit() {
   return null;
 }
 
+/**
+ * Every route change starts at the very top, instantly. Without this,
+ * ScrollSmoother glides from the old scroll position up to 0 on the new
+ * page, firing every scroll animation along the way.
+ */
+function ScrollReset() {
+  const pathname = usePathname();
+
+  useLayoutEffect(() => {
+    // Guard the first moments after a route change: ScrollTrigger refreshes
+    // (and any other late writer) can restore the old scroll position, and
+    // the global `scroll-behavior: smooth` would turn the correction into a
+    // visible glide that fires every scroll animation on the way up.
+    const html = document.documentElement;
+    const prevBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+
+    const toTop = () => {
+      const smoother = ScrollSmoother.get();
+      if (smoother) {
+        smoother.scrollTo(0, false);
+        smoother.scrollTop(0);
+      }
+      if (window.scrollY !== 0) window.scrollTo(0, 0);
+    };
+    toTop();
+
+    let raf = 0;
+    const until = performance.now() + 500;
+    const guard = () => {
+      toTop();
+      if (performance.now() < until) {
+        raf = requestAnimationFrame(guard);
+      } else {
+        html.style.scrollBehavior = prevBehavior;
+      }
+    };
+    raf = requestAnimationFrame(guard);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      html.style.scrollBehavior = prevBehavior;
+    };
+  }, [pathname]);
+
+  return null;
+}
+
 export function GsapProvider({ children }: { children: ReactNode }) {
   return (
     <div id="smooth-wrapper">
       <div id="smooth-content">
         <SmootherInit />
+        <ScrollReset />
         {children}
       </div>
     </div>
