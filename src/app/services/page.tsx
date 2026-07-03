@@ -1,27 +1,52 @@
-import { ButtonRow, PageShell, SectionIntro } from "@/components/site";
+import type { Metadata } from "next";
+import {
+  CtaSection,
+  PageHero,
+  PageShell,
+  SectionIntro,
+} from "@/components/site";
+import {
+  HighlightFill,
+  Reveal,
+  RevealStagger,
+} from "@/components/gsap/primitives";
 import { serviceGroups } from "@/lib/site-data";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Startup development, dedicated product teams, and custom business solutions — engagements scoped to where you are.",
+};
 
 export default function ServicesPage() {
   return (
     <PageShell>
-      <section className="page-hero">
-        <div className="container">
-          <SectionIntro
-            eyebrow="Services"
-            title="Engagements scoped to where you are — and where you're going."
-            body="From a first MVP to a long-term product organisation. Pick the shape that fits the moment."
-          />
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Services · Pick your blend"
+        title={
+          <>
+            Engagements scoped to where you are — and{" "}
+            <HighlightFill>where you&apos;re going</HighlightFill>.
+          </>
+        }
+        body="From a first MVP to a long-term product organisation. Three blends, one standard of craft — pick the shape that fits the moment."
+      />
       {serviceGroups.map((group) => (
         <section className="section" key={group.title}>
           <div className="container section-pad">
-            <SectionIntro
-              eyebrow={`/${group.number}`}
-              title={group.title}
-              body={group.intro}
-            />
-            <div className="card-grid" style={{ marginTop: "3.5rem" }}>
+            <Reveal>
+              <SectionIntro
+                eyebrow={`/${group.number} · ${group.blendTag}`}
+                title={
+                  <>
+                    {group.title}{" "}
+                    <span className="blend-label">— {group.blend}</span>
+                  </>
+                }
+                body={group.intro}
+              />
+            </Reveal>
+            <RevealStagger className="card-grid" style={{ marginTop: "3.5rem" }}>
               {group.items.map(([title, body]) => (
                 <article className="surface-card" key={title}>
                   <p className="eyebrow">Capability</p>
@@ -29,20 +54,14 @@ export default function ServicesPage() {
                   <p>{body}</p>
                 </article>
               ))}
-            </div>
+            </RevealStagger>
           </div>
         </section>
       ))}
-      <section className="cta-section">
-        <div className="container">
-          <SectionIntro
-            title="Tell us about your product."
-            body="We’ll help shape the engagement around the outcome you need."
-            centered
-          />
-          <ButtonRow primary={["Tell us about your product", "/contact"]} />
-        </div>
-      </section>
+      <CtaSection
+        title="Not sure which blend fits?"
+        body="Tell us about your product — we'll help shape the engagement around the outcome you need."
+      />
     </PageShell>
   );
 }
